@@ -1,3 +1,4 @@
+//c++ Compile
 #include <iostream>
 using namespace std;
 int main(){
@@ -15,4 +16,26 @@ int main(){
     }
     cout<<apper<<endl;
     return 0;
+}
+//Java Compile
+import java.util.Scanner;
+class T1001{
+    public static void main(String args[]){
+        Scanner user_input = new Scanner(System.in);
+        int L,R,apper=0;
+        L=user_input.nextInt();
+        R=user_input.nextInt();
+        for(int i=L;i<=R;i++){
+            int k=i;
+            while(k>10){
+                if(k%10==2){
+                    apper++;
+                }
+            k/=10;
+            }
+        if(k==2)apper++;
+        }
+        System.out.println(apper);
+    }
+
 }
