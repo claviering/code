@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+int main(){
+    int wordDay,moneySum=0,money=1;
+    cin>>wordDay;
+    //((1+money)*money)/2 add money and add day had worded,
+    while(wordDay-((1+money)*money)/2>0){
+        moneySum+=money*money;
+        money++;
+    }
+    //add the last part of day didn't word
+    moneySum+=(wordDay-((money-1)*money)/2)*money;
+    cout<<moneySum<<endl;
+    return 0;
+}

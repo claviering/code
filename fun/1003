@@ -1,0 +1,14 @@
+#include <cstdio>
+int main()
+{
+    int n;
+    while(scanf("%d",&n)!=EOF)
+    {
+        double ans[1000];
+        ans[2]=2.0/3;
+        for(int i=3;i<=n;i++)
+            ans[i]=2.0*(i-1)/(2*i-1)*ans[i-1];
+        printf("%.6f\n",ans[n]);
+    }
+    return 0;
+}
