@@ -2,6 +2,7 @@
 using namespace std;
 int StraightInsertionSort(int array[],int length);
 int bubbleSort(int array[],int length);
+int selectionSort(int array[],int length);
 int main(){
     int length;
     cin>>length;
@@ -12,7 +13,7 @@ int main(){
     cout<<"old"<<endl;
     for(int i=0;i<length;i++)   cout<<array[i]<<" ";
     cout<<endl;
-    bubbleSort(array,length);
+    selectionSort(array,length);
     cout<<"new"<<endl;
     for(int i=0;i<length;i++)   cout<<array[i]<<" ";
     cout<<endl;
@@ -35,6 +36,20 @@ int bubbleSort(int array[],int length){
                 array[cur]   ^= array[cur-1];
                 array[cur-1] ^= array[cur];
             }
+        }
+    }
+    return 0;
+}
+int selectionSort(int array[],int length){
+    for(int i=0;i<length-1;length--){
+        int bigger=0;
+        for(int cur=1;cur<length;cur++){
+            if(array[bigger]<array[cur])  bigger=cur; 
+        }
+        if(bigger<length-1){
+            array[bigger] ^= array[length-1];
+            array[length-1] ^= array[bigger];
+            array[bigger] ^= array[length-1];
         }
     }
     return 0;
