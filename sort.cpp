@@ -3,19 +3,15 @@ using namespace std;
 int StraightInsertionSort(int array[],int length);
 int bubbleSort(int array[],int length);
 int selectionSort(int array[],int length);
+int shellSort(int array[],int length);
 int main()
 {
-    int length;
-    cin>>length;
-    int array[length];
-    for(int i = 0; i < length; i++)
-    {
-        cin>>array[i];
-    }
+    int length=20;
+    int array[length]={99,94,84,82,74,71,65,61,59,53,42,49,32,31,29,24,11,10,9,12};
     cout<<"old"<<endl;
     for(int i=0; i < length; i++)   cout<<array[i]<<" ";
     cout<<endl;
-    selectionSort(array,length);
+    shellSort(array,length);
     cout<<"new"<<endl;
     for(int i = 0; i < length; i++)   cout<<array[i]<<" ";
     cout<<endl;
@@ -65,16 +61,16 @@ int selectionSort(int array[],int length)
 }
 int shellSort(int array[],int length)
 {
-    for(int gap = length >> 2; gap > 0; gap >>= 2)
+    int gap,i,j;
+    int temp;
+    for(gap = length >> 1; gap > 0; gap >>= 1)
     {
-        for(int i=gap; i < n; i++)
+        for(i = gap; i < length; i++)
         {
-            for(int j = i - gap; j >= 0 && array[j] > array[i]; j-=gap)
-            {
-                array[j] ^= array[i];
-                array[i] ^= array[j];
-                array[j] ^= array[i];
-            }
+            temp = array[i];
+            for(j = i - gap; j >= 0 && array[j] > temp; j-= gap)
+                array[j + gap] = array[j];
+            array[j + gap] = temp;
         }
     }
 }
