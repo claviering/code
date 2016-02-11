@@ -61,11 +61,10 @@ int selectionSort(int array[],int length)
 }
 int shellSort(int array[],int length)
 {
-    int gap,i,j;
-    int temp;
-    for(gap = length >> 1; gap > 0; gap >>= 1)
+    int j,temp;
+    for(int gap = length >> 1; gap > 0; gap >>= 1)
     {
-        for(i = gap; i < length; i++)
+        for(int i = gap; i < length; i++)
         {
             temp = array[i];
             for(j = i - gap; j >= 0 && array[j] > temp; j-= gap)
