@@ -4,6 +4,7 @@ int StraightInsertionSort(int array[],int length);
 int bubbleSort(int array[],int length);
 int selectionSort(int array[],int length);
 int shellSort(int array[],int length);
+void mergeSort(int arr[], const int len);
 int main()
 {
     int length=20;
@@ -11,7 +12,7 @@ int main()
     cout<<"old"<<endl;
     for(int i=0; i < length; i++)   cout<<array[i]<<" ";
     cout<<endl;
-    shellSort(array,length);
+    mergeSort(array,length);
     cout<<"new"<<endl;
     for(int i = 0; i < length; i++)   cout<<array[i]<<" ";
     cout<<endl;
@@ -72,4 +73,30 @@ int shellSort(int array[],int length)
             array[j + gap] = temp;
         }
     }
+}
+void mergeSortRecursive(int arr[],int reg[],int start,int end)
+{
+    if(start >= end)
+    {
+        return;
+    }
+    int len =end -start, mid = (len >> 1) + start;
+    int start1 = start, end1 = mid;
+    int start2 = mid + 1, end2 = end;
+    mergeSortRecursive(arr, reg, start1, end1);
+    mergeSortRecursive(arr, reg, start2, end2);
+    int k = start;
+    while (start1 <= end1 && start2 <= end2)
+		reg[k++] = arr[start1] < arr[start2] ? arr[start1++] : arr[start2++];
+	while (start1 <= end1)
+		reg[k++] = arr[start1++];
+	while (start2 <= end2)
+		reg[k++] = arr[start2++];
+	for (k = start; k <= end; k++)
+		arr[k] = reg[k];
+}
+void mergeSort(int arr[], const int len)
+{
+	int reg[len];
+	mergeSortRecursive(arr, reg, 0, len - 1);
 }
