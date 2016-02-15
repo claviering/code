@@ -5,6 +5,7 @@ int bubbleSort(int array[],int length);
 int selectionSort(int array[],int length);
 int shellSort(int array[],int length);
 void mergeSort(int arr[], const int len);
+void quickSort(int arr[], int len); 
 int main()
 {
     int length=20;
@@ -12,7 +13,7 @@ int main()
     cout<<"old"<<endl;
     for (int i=0; i < length; i++)   cout<<array[i]<<" ";
     cout<<endl;
-    mergeSort(array,length);
+    quickSort(array,length);
     cout<<"new"<<endl;
     for (int i = 0; i < length; i++)   cout<<array[i]<<" ";
     cout<<endl;
@@ -99,4 +100,26 @@ void mergeSort(int arr[], const int len)
 {
 	int reg[len];
 	mergeSortRecursive(arr, reg, 0, len - 1);
+}
+
+void quickSortRecursive(int arr[], int start, int end)
+{
+	if (start >= end) return;
+	int mid = arr[end];
+	int left = start, right = end - 1;
+	while (left < right) {
+		while (arr[left] < mid && left < right) left++;
+		while (arr[right] >= mid && left < right) right--;
+		swap(arr[left], arr[right]);
+	}
+	if (arr[left] >= arr[end])
+		swap(arr[left], arr[end]);
+	else
+		left++;
+	quickSortRecursive(arr, start, left - 1);
+	quickSortRecursive(arr, left + 1, end);
+}
+void quickSort(int arr[], int len) 
+{
+	quickSortRecursive(arr, 0, len - 1);
 }
