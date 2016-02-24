@@ -15,11 +15,11 @@ int main(){
     cout << n << endl;
     sort (arr.begin(),arr.end());
     reverse (arr.begin(),arr.end());
-    int cut = arr[n-1];
     while(n)
     {
         for(int arr_i = 0; arr_i < n; arr_i++)
         {
+            int cut = arr[n-1];
             arr[arr_i] -= cut;
             if(arr[arr_i] <= 0) 
             {
