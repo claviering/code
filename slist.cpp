@@ -43,9 +43,7 @@ Mylist<T> :: Mylist()
 }
 template<typename T>
 void Mylist<T> :: add(T x)
-{
-    node = new SlistNode<T>();
-    node -> data = x;
+{ node = new SlistNode<T>(); node -> data = x;
     if (lastnode == NULL)
     {
         headnode = node;
