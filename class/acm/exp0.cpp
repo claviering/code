@@ -17,15 +17,16 @@ int Compute(char *Exp)
      switch( Exp[i] ) 
 	 {
 	    case '0':    
-            case '1': 
-            case '2':    
-            case '3':
-            case '4':   
+        case '1': 
+        case '2':    
+        case '3':
+        case '4':   
 	    case '5':
   	    case '6':      
 	    case '7':	  
-            case '8': 	    
-	    case '9':  factor=0;  		
+        case '8': 	    
+	    case '9':  
+            factor=0;  		
 		       do {     //  合并出运算对象的值 			   
 			     factor=factor*10+Exp[i]-48; 			 
 			     i=i+1;
@@ -34,20 +35,32 @@ int Compute(char *Exp)
 		          st.push(factor);  // 运算对象入栈
 			  i--;
 		          break;
-   	    case '+':val1=st.top();st.pop();
-		     val2=st.top(); st.pop();
+   	    case '+':
+                 val1=st.top();
+                 st.pop();
+                 val2=st.top(); 
+                 st.pop();
 		     st.push(val1+val2);
 		      break;
-   	    case '-':val1=st.top();st.pop();
-		     val2=st.top(); st.pop();
+   	    case '-':
+              val1=st.top();
+              st.pop();
+		     val2=st.top(); 
+             st.pop();
 		     st.push(val2-val1);
 		     break;
-   	    case '*':val1=st.top();st.pop();
-		     val2=st.top(); st.pop();
-	     	     st.push(val1*val2);
+   	    case '*':
+             val1=st.top();
+             st.pop();
+		     val2=st.top(); 
+             st.pop();
+             st.push(val1*val2);
 		     break;
-   	    case '/':val1=st.top();st.pop();
-		     val2=st.top(); st.pop();
+   	    case '/':
+             val1=st.top();
+             st.pop();
+		     val2=st.top(); 
+             st.pop();
 		     st.push(val2/val1);
 		     break;	
 	 } // swtich
@@ -56,14 +69,12 @@ int Compute(char *Exp)
   return st.top();
 } //compute
 
-void main()
+int main()
 {
      char exp[255];
 
      cin.getline(exp,255);
 
-     cout<<exp<<"=";
-     cout<<Compute(exp)<<endl;
-
-
+     cout << exp << "=";
+     cout << Compute(exp) << endl;
 }
