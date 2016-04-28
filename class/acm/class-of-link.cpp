@@ -4,7 +4,7 @@ using namespace std;
 class Node
 {
     private:
-        node *_next;
+        Node *_next;
         int _data;
 };
 
@@ -18,8 +18,19 @@ class Link
         void bubbleSort(Node *h);
         void inverseLink(Node *h);
         void insert(Node *h);
+        Link();
 
 };
+
+Link :: Link()
+{
+    head = NULL;
+}
+
+Node Node :: *creat(Node *h)
+{
+    Node *p = new Node; 
+}
 
 int main()
 {
