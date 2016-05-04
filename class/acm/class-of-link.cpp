@@ -13,7 +13,7 @@ class Link
     private:
         Node *head;
     public:
-        Node *creat(int data);
+        Node *creat(Node *head,int data);
         void display(Node *h);
         void bubbleSort(Node *h);
         void inverseLink(Node *h);
@@ -27,13 +27,21 @@ Link :: Link()
     head = NULL;
 }
 
-Node Link:: *creat(int data)
+Node Link:: *creat(Node *head,int data)
 {
-    Node *head;
-    Node *p = new Node; 
-    p -> _data = data;
-    p -> _next = head;
-    head = p;
+    if (head == NULL)
+    {
+        Node *p = new Node; 
+        p -> _data = data;
+        head = p;
+    }
+    else
+    {
+        Node *p = new Node; 
+        p -> _data = data;
+        p -> _next = head;
+        head = p;
+    }
 }
 
 void display(Node *h)
