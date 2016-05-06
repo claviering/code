@@ -5,7 +5,7 @@ using namespace std;
 const char NEGA = '-';
 const char POSI = '+';
 const char SPAC = ' ';
-const string POLY[8] = {"x^8","x^7","x^6","x^5","x^4","x^3","x^2","x^1"};
+const string POLY[8] = {"x^8","x^7","x^6","x^5","x^4","x^3","x^2","x"};
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
             {
                if (firstCout) 
                {
-                    cout << NEGA << SPAC << abs (input[i]) << POLY[i];
+                    cout << NEGA << abs (input[i]) << POLY[i];
                     firstCout = 0;
                }
                else
