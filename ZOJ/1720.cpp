@@ -17,7 +17,8 @@ int main()
         for (int i = 0; i < 8; i++)
         {
             int tmp = input[i];
-            if (tmp < 0)
+
+            if (tmp < -1)
             {
                if (firstCout) 
                {
@@ -29,10 +30,25 @@ int main()
                     cout << SPAC << NEGA << SPAC << abs (input[i]) << POLY[i];
                }
             }
+
+            else if (tmp == -1)
+            {
+               if (firstCout) 
+               {
+                    cout << NEGA << POLY[i];    
+                    firstCout = 0;
+               }
+               else
+               {
+                    cout << SPAC << NEGA << SPAC << POLY[i];    
+               }
+            }
+
             else if (tmp == 0)
             {
                 continue;
             }
+
             else if (tmp == 1)
             {
                if (firstCout) 
