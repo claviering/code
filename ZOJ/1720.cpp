@@ -75,6 +75,7 @@ int main()
 
             }
         }
+
         if (firstCout)
         {
             if (input[8] < 0)
