@@ -10,6 +10,8 @@ int main()
     string b;
     while (cin >> a >> b)
     {
+        int x = a[0] - 'a';
+
 
     }
      
