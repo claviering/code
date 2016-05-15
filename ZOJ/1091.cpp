@@ -6,8 +6,12 @@ int y[] = {2,-2,1,-1,2,-2,1,-1};
 
 int main()
 {
-    char a[10];
-    char b[10];
+    string a;
+    string b;
+    while (cin >> a >> b)
+    {
+
+    }
      
     return 0;
 }
