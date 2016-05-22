@@ -14,8 +14,14 @@ class point
 
 void bfs(point &poi)
 {
-    walk.push (poi);
+    walk.push (poi[x][y]);
     point tmp = walk.front();
+    walk.pop();
+    for (int q = 0; q < 8; q++)
+    {
+        if (tmp[x+q][y+q].here)
+                walk.push (poi[x+q][y+q]);
+    }
         
         
 }
@@ -31,6 +37,7 @@ int main()
         int xExit = b[0] - 'a';
         int yExit = b[1] - '1';
 
+        void bfs(point &poi);
         queue<point> walk;
 
         point poi[8][8];
@@ -39,6 +46,7 @@ int main()
         {
             for (int j = 0; j < 8; j++)
                 poi[i][j].here = 1;
+                poi[i][j].step = 0;
         }
 
         bfs(poi[x][y]);
