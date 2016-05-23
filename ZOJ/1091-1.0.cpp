@@ -5,25 +5,36 @@ using namespace std;
 int x[8] = {1,1,2,2,-1,-1,-2,-2};
 int y[8] = {2,-2,1,-1,-2,2,-1,1};
 
-class point
+class Knight
 {
     public:
+        int x;
+        int y;
         int step;
         bool here;
 };
 
-void bfs(point &poi)
+queue<Knight> q;
+
+void bfs(Knight start,Knight end)
 {
-    walk.push (poi[x][y]);
-    point tmp = walk.front();
-    walk.pop();
-    for (int q = 0; q < 8; q++)
+    if (start.x == end.x && start.y == end.y)
+        return;
+
+    for (int i = 0; i < 8; i++)
     {
-        if (tmp[x+q][y+q].here)
-                walk.push (poi[x+q][y+q]);
+        Knight now;
+        now.x = start.x + x[i];
+        now.y = start.y + y[i];
+        if (now.x < 0 || now.y < 0 || now.x > 7 || now.y > 7)
+            continue;
+        q.push (now);
     }
-        
-        
+
+    Knight first;
+    first = q.front ();
+    q.pop ();
+    bfs (first,end);
 }
 
 int main()
@@ -34,22 +45,18 @@ int main()
     {
         int x = a[0] - 'a';
         int y = a[1] - '1';
-        int xExit = b[0] - 'a';
-        int yExit = b[1] - '1';
+        int xEnd = b[0] - 'a';
+        int yEnd = b[1] - '1';
 
-        void bfs(point &poi);
-        queue<point> walk;
+        Knight kStart;
+        Knight kEnd;
 
-        point poi[8][8];
 
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-                poi[i][j].here = 1;
-                poi[i][j].step = 0;
-        }
+        kStart.x = x;
+        kStart.y = y;
 
-        bfs(poi[x][y]);
+        kEnd.x = xEnd;
+        kEnd.y = yEnd;
 
     } 
     return 0;
