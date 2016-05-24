@@ -12,27 +12,36 @@ class Knight
         int y;
         int step;
         bool here;
+        Knight()
+        {
+            here = 0;
+        }
 };
 
 queue<Knight> q;
 
-void bfs(Knight start,Knight end)
+int bfs(Knight start,Knight end)
 {
     if (start.x == end.x && start.y == end.y)
-        return;
+        return start.step;
 
     for (int i = 0; i < 8; i++)
     {
         Knight now;
         now.x = start.x + x[i];
         now.y = start.y + y[i];
-        if (now.x < 0 || now.y < 0 || now.x > 7 || now.y > 7)
+        if (now.here || now.x < 0 || now.y < 0 || now.x > 7 || now.y > 7)
             continue;
+        now.step = start.step + 1;
+        now.here = 1;
+
+        if (start.x == end.x && start.y == end.y)
+            return now.step;
+
         q.push (now);
     }
 
-    Knight first;
-    first = q.front ();
+    Knight first = q.front ();
     q.pop ();
     bfs (first,end);
 }
@@ -54,10 +63,14 @@ int main()
 
         kStart.x = x;
         kStart.y = y;
+        kStart.step = 0;
+        kStart.here = 1;
 
         kEnd.x = xEnd;
         kEnd.y = yEnd;
 
+        int anw = bfs(kStart,kEnd);
+        cout << anw << endl;
     } 
     return 0;
 }
