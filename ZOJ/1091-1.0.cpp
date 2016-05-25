@@ -1,9 +1,26 @@
 #include <iostream>
+#include <cstring>
 #include <queue>
 using namespace std;
 
+const string display0 = "To get from ";
+const string display1 = " to ";
+const string display2 = " takes ";
+const string display3 = " knight moves.";
+
 int x[8] = {1,1,2,2,-1,-1,-2,-2};
 int y[8] = {2,-2,1,-1,-2,2,-1,1};
+bool board[8][8] = 
+{
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0
+};
 
 class Knight
 {
@@ -11,10 +28,9 @@ class Knight
         int x;
         int y;
         int step;
-        bool here;
         Knight()
         {
-            here = 0;
+            step = 0;
         }
 };
 
@@ -30,10 +46,11 @@ int bfs(Knight start,Knight end)
         Knight now;
         now.x = start.x + x[i];
         now.y = start.y + y[i];
-        if (now.here || now.x < 0 || now.y < 0 || now.x > 7 || now.y > 7)
+
+        if (board[now.x][now.y] || now.x < 0 || now.y < 0 || now.x > 7 || now.y > 7)
             continue;
         now.step = start.step + 1;
-        now.here = 1;
+        board[now.x][now.y] = 1;  
 
         if (start.x == end.x && start.y == end.y)
             return now.step;
@@ -52,6 +69,13 @@ int main()
     string b;
     while (cin >> a >> b)
     {
+        while (!q.empty())
+        {
+            q.pop();
+        }
+
+        memset (board,0,sizeof (board));
+
         int x = a[0] - 'a';
         int y = a[1] - '1';
         int xEnd = b[0] - 'a';
@@ -64,13 +88,13 @@ int main()
         kStart.x = x;
         kStart.y = y;
         kStart.step = 0;
-        kStart.here = 1;
+        board[kStart.x][kStart.y] = 1;
 
         kEnd.x = xEnd;
         kEnd.y = yEnd;
 
         int anw = bfs(kStart,kEnd);
-        cout << anw << endl;
+        cout << display0 << a << display1 << b << display2 << anw << display3 << endl;
     } 
     return 0;
 }
