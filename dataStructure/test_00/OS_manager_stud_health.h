@@ -43,6 +43,8 @@
 #include <iostream>
 using namespace std;
 
+const string INPUT_STUDENT_NAME = "input a student name";
+
 class Student
 {
     private:
@@ -52,6 +54,7 @@ class Student
         string m_gender;
         string m_condition;
     public:
+        void Student();
         void creatTable();
         void addInfo();
         void addNewInfo();
@@ -64,3 +67,15 @@ class Student
         void writeToFile();
         void exitOS();
 };
+void Student::Student()
+{
+
+}
+
+void Student::creatTable()
+{
+    Student stud;
+    cout << INPUT_STUDENT_NAME << endl;
+    cin >> stud.m_name;
+}
+
