@@ -79,3 +79,35 @@ void Student::creatTable()
     cin >> stud.m_name;
 }
 
+void Student::addInfo()
+{
+	Student stud;
+
+	cout << INPUT_STUDENT_BIRTHDAY << endl;
+	cin >> stud.m_birth;
+
+	cout << INPUT_STUDENT_GENDER << endl;
+	cin >> stud.m_gender;
+
+	cout << INPUT_STUDENT_CONDITION << endl;
+	cin >> stud.m_condition;
+	
+}
+
+void Student::addNewInfo()
+{
+	Student stud;
+
+	cout << "old infomation" << endl;
+	cout << stud.m_name << endl;
+	cout << stud.m_num << endl;
+	cout << stud.m_birth << endl;
+	cout << stud.m_condition << endl;
+	cout << stud.m_gender << endl;
+
+	cout << "which info would you would to chang " << endl;
+	cout << "1: name 2: num 3:birth 4:condition 5:gender" << endl;
+	int choose;
+	cin >> choose;
+	
+}
