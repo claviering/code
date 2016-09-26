@@ -13,20 +13,24 @@ public class inputForPrime
     {
         long startTime = System.nanoTime();
 
+        boolean flag = true;
         if (checkInput(args))
         {
-            int n = Integer.parseInt(args[0]);
-            int m = Integer.parseInt(args[1]);
-            isPrime(n,m);
+            usingTeri(args);
         }
         else 
         {
+            flag = false;
             usingDialog();
         }
         
 
         long endTime = System.nanoTime();
-        displayRuningTime(startTime, endTime);
+
+        if (flag)
+            displayRuningTime(startTime, endTime, true);
+        else
+            displayRuningTime(startTime, endTime, false);
 
     }
 
@@ -43,6 +47,8 @@ public class inputForPrime
             {
                 int n = Integer.parseInt(args[0]);
                 int m = Integer.parseInt(args[1]);
+                if (n < 0 || m < 0)
+                    throw new Exception();
                 return true;
             }
             catch(Exception e)
@@ -56,9 +62,20 @@ public class inputForPrime
             System.out.println("Input Error");
             System.exit(0);
         }
-        return false;
+        return true;
 
     }
+
+    public static void usingTeri(String[] args)
+    {
+            int n = Integer.parseInt(args[0]);
+            int m = Integer.parseInt(args[1]);
+
+            String s = isPrime(n,m);
+
+            displayPrime(s, true);
+    }
+
     public static void usingDialog()
     {
         String firstInput = JOptionPane.showInputDialog("calc prime", "input the first Integer numbers");
@@ -67,15 +84,21 @@ public class inputForPrime
         {
             int n = Integer.parseInt(firstInput);
             int m = Integer.parseInt(secondInput);
-            isPrime(n, m);
+            if (n < 0 || m < 0)
+            {
+                throw new Exception();
+            }
+            String s = isPrime(n, m);
+            displayPrime(s,false);
         }
         catch(Exception e)
         {
             System.out.println("Input Error");
+            System.exit(0);
         }
     }
 
-    public static void isPrime(int n, int m)
+    public static String isPrime(int n, int m)
     {
         if (n > m)
         {
@@ -98,22 +121,38 @@ public class inputForPrime
             }
             if (flag)
             {
-                primeStr = primeStr + i + ",";
-                System.out.print(i+" ");
+                primeStr = primeStr + i + " ";
             }
         }
-        System.out.println();
-        System.out.println("----");
-        System.out.println(primeStr);
+        return primeStr;
     }
 
-    public static void displayRuningTime(long startTime, long endTime)
+    public static void displayRuningTime(long startTime, long endTime, boolean choose)
     {
-        System.out.println();
-        System.out.println("runing time");
-        System.out.println(endTime - startTime + " ns");
         double ms = (double)(endTime - startTime) / 10e9;
-        System.out.println(ms + " ms");
+        if (choose)
+        {
+            System.out.println();
+            System.out.println("runing time");
+            System.out.println(endTime - startTime + " ns");
+            System.out.println(ms + " ms");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,ms + "ms");
+        }
+    }
+    public static void displayPrime(String pri, boolean ch)
+    {
+        if (ch)
+        {
+            System.out.println(pri);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,pri);
+        }
+
     }
 }
 
