@@ -28,9 +28,11 @@ class MyList
         MyList();
         int length();
         void add_node(int x);
+        void add_node_head(int x);
         void init_list(int number_of_node);
         void delete_node(int x);
         void display_my_list();
+        MyList reverse_list();
     private:
         int list_length;
         ListNode *node;
@@ -39,6 +41,19 @@ class MyList
     
 };
 
+MyList MyList::reverse_list()
+{
+    MyList new_list;
+    node = head_node;
+    while (head_node != NULL)
+    {
+        new_list.add_node_head(head_node -> data);
+        head_node = node -> next;
+        delete node;
+        node = head_node;
+    }
+    return new_list;
+}
 
 //O(n)
 void MyList::display_my_list()
@@ -64,6 +79,23 @@ MyList::MyList()
     last_node = NULL;
     head_node = NULL;
     list_length = 0;
+}
+
+void MyList::add_node_head(int x)
+{
+    node = new ListNode;
+    node -> data = x;
+    if (last_node == NULL)
+    {
+        head_node = node;
+        last_node = node;
+    }
+    else
+    {
+        node -> next = head_node;
+        head_node = node;        
+    }
+    ++list_length;
 }
 
 void MyList::add_node(int x)
