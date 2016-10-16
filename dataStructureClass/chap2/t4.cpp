@@ -19,7 +19,8 @@ void separate(List *head, List *char_list_first, List *int_list_first, List *oth
                     char_list_first = char_tmp;
                 else
                 {
-                    char_list_first -> next = char_tmp;
+                    char_tmp -> next = head;
+                    char_tmp = head;
                 }
             }
             else if (head -> data == int)
@@ -29,7 +30,8 @@ void separate(List *head, List *char_list_first, List *int_list_first, List *oth
                     int_list_first = int_tmp;
                 else
                 {
-                    int_list_first -> next = int_tmp;
+                    int_tmp -> next = head;
+                    int_tmp = head;
                 }
             }
             else if (head -> data == other)
@@ -39,11 +41,16 @@ void separate(List *head, List *char_list_first, List *int_list_first, List *oth
                     other_list_first = other_tmp;
                 else
                 {
-                    other_list_first -> next = other_tmp;
+                    other_tmp -> next = head;
+                    other_tmp = head;
                 }
             }
             head = head -> next;
         }
+
+        char_tmp = char_list_first;
+        int_tmp = int_list_first;
+        other_tmp = other_list_first;
 
         char_tmp = 0;
         int_tmp = 0;
