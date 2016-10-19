@@ -1,10 +1,30 @@
-/*************************************************************************
+/**********************************************************************
 	> File Name: my_list.h
-	> Author: 
+	> Author:lin wei ye 
 	> Mail: 
 	> Created Time: Sun 02 Oct 2016 02:22:46 PM CST
- ************************************************************************/
+ *********************************************************************/
+/*
+ *链表头文件
+ *              
+ *方法：
+ * MyList(); 构造函数
+ * int length(); 返回链表长度
+ * void add_node(int x); 添加一个节点，参数x是整数，返回空
+ * void add_node_head(int x); 头插入
+ * void init_list(int number_of_node); 初始化一条链，0->1->2->...
+ * void delete_node(int x); 删除一个节点
+ * void display_my_list(); 输出链
+ * MyList reverse_list(); 逆转链表
 
+ *属性：
+ * 链表长度 list_length
+ * 链头指针 *head_node
+ * 链尾指针 *last_node
+ * 辅助指针 *node
+ *
+ *
+ */           
 #ifndef _MY_LIST_H
 #define _MY_LIST_H
 #endif
@@ -37,7 +57,7 @@ class MyList
         int list_length;
         ListNode *node;
         ListNode *last_node;
-        ListNode * head_node;
+        ListNode *head_node;
     
 };
 
