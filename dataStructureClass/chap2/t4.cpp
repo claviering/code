@@ -6,9 +6,9 @@ void separate(List *head, List *char_list_first, List *int_list_first, List *oth
     }
     else
     {
-        char_tmp = new List;
-        int_tmp = new List;
-        other_tmp = new List;
+        char_tmp = 0;
+        int_tmp = 0;
+        other_tmp = 0;
 
         while (head != 0)
         {
