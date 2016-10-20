@@ -1,9 +1,13 @@
 #include <iostream>
 using namespace std;
-const int number = 100;
 
-//时间复杂度O(log2 )
-//最好O(1)
+int number = 100;
+
+    /*
+     *二方法查找，然后删除
+     *时间复杂度O(log2 )
+     *最好O(1)
+     */
 bool del(int *p, int x)
 {
     int head = 0;
@@ -22,6 +26,7 @@ bool del(int *p, int x)
             flag = 1;
         }
     }
+    number--;
     return flag;
 }
 
@@ -32,10 +37,18 @@ int main()
         ar[i] = i;
     int x;
     cin >> x;
+    
+    for (int i = 1; i < number; i++)
+        cout << ar[i] << " ";
+    
     if (del(ar,x)) 
         cout << "TURE "<< endl;
     else 
         cout << "FALSE "<< endl;
+    
+    for (int i = 1; i < number; i++)
+        cout << ar[i] << " ";
+    
     delete []ar;
     return 0;
 }
