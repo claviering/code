@@ -113,7 +113,7 @@
         node = headnode;
         while (node != NULL)
         {
-            cout << node -> data << endl;
+            cout << node -> data << " ";
             node = node -> next;
         }
         cout << endl;
@@ -193,23 +193,29 @@
         listlength++;
     }
 
+    /*
+     *逆置
+     *改变头尾指针和指针方向
+     */
     template<typename T>
     void Mylist<T> :: reverse_list()
     {
-        if (headnode == NULL)
+        if (headnode == NULL || headnode -> next == NULL)
             return;
 
-        SlistNode<T> tmp_node = new SlistNode<T>();
+        SlistNode<T> *tmp_node = new SlistNode<T>;
+        node = headnode;
+        tmp_node = headnode -> next;
         lastnode = headnode;
-        while (headnode -> next != NULL)
+        while (tmp_node != NULL)
         {
-            node = headnode;
-            headnode = headnode -> next;
-            tmp_node = headnode -> next;
+            headnode = tmp_node;
+            tmp_node = tmp_node -> next;
             headnode -> next = node;
+            node = headnode;
         }
+        lastnode -> next = NULL;
         delete tmp_node;
-        delete node;
     }
 
 #endif 

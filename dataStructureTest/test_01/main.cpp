@@ -12,7 +12,7 @@ using namespace std;
      *@param n 功能选择序号
      */
 template<typename T>
-void choose(Mylist<T> object)
+void choose(Mylist<T> &object)
 {
     cout << "1.初始化(删除全部节点)" << endl 
          << "2.头插入建链(输入节点个数和每个数据)" << endl 
@@ -67,14 +67,21 @@ void choose(Mylist<T> object)
     else if (n == 7) //输出表长
         cout << "list length is:" << object.length() << endl;
     else if (n == 8) //链表元素的逆置
+    {
+        object.reverse_list();
         object.traversal();
+    }
     else if (n == 9) //退出
         exit(1);
     else 
     {
         cout << "input error" << endl;
+        cout << "TRY AGAIN" << endl;
+        cin >> n;
+        choose(object);
         return;
     }
+    choose(object);
 }
 
     /*
@@ -85,7 +92,7 @@ void choose(Mylist<T> object)
      * @param:链表对象
      */
 template<typename T>
-void HeadCreatList(Mylist<T> object)
+void HeadCreatList(Mylist<T> &object)
 {
     cout << "node numbers" << endl;
     int node_num;
@@ -106,7 +113,7 @@ void HeadCreatList(Mylist<T> object)
      * @param:链表对象
      */
 template<typename T>
-void TailCreatList(Mylist<T> object)
+void TailCreatList(Mylist<T> &object)
 {
     cout << "node numbers" << endl;
     int node_num;
@@ -121,6 +128,7 @@ void TailCreatList(Mylist<T> object)
 
     /*
      * 插入操作
+     * 开始位置为0
      * 输入：1.插入位置i
      *       2.插入元素值
      * 输出：1.插入前的序列
@@ -129,10 +137,9 @@ void TailCreatList(Mylist<T> object)
      * @param:链表对象
      */
 template<typename T>
-void InsertLocal_i(Mylist<T> object)
+void InsertLocal_i(Mylist<T> &object)
 {
-    cout << "input local i to insert" << endl;
-    cout << "insert date" << endl;
+    cout << "input local i to insert and data (start local is 0)" << endl;
     int i;
     int data;
     cin >> i >> data;
@@ -148,22 +155,21 @@ void InsertLocal_i(Mylist<T> object)
 }
 
     /*
-     *删除操作
-     *输入: 1.删除位置i
-     *      2.删除元素值
-     *输出: 1.删除前的序列
-     *      2.删除后的序列
+     * 删除操作
+     * 开始位置为0
+     * 输入: 1.删除位置i
      *
-     *@param:链表对象
+     * 输出: 1.删除前的序列
+     *       2.删除后的序列
+     *
+     * @param:链表对象
      */
 template<typename T>
-void DeleteLocal_i(Mylist<T> object)
+void DeleteLocal_i(Mylist<T> &object)
 {
-    cout << "input local i to delete" << endl;
-    cout << "delete date" << endl;
+    cout << "input local i (start is 0)" << endl;
     int i;
-    int data;
-    cin >> i >> data;
+    cin >> i;
     int list_length = object.length();
     if (i < 0 || i > list_length)
         return;
@@ -183,7 +189,7 @@ void DeleteLocal_i(Mylist<T> object)
      *@param:链表对象
      */
 template<typename T>
-bool FindLocal_i(Mylist<T> object)
+bool FindLocal_i(Mylist<T> &object)
 {
     cout << "input find data" << endl;
     int data;
