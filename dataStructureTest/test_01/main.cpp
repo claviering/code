@@ -3,6 +3,8 @@
  * @Author lin wei ye
  */
 #include "slist.h"
+#include "student.h"
+
 #include <iostream>
 using namespace std;
 

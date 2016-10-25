@@ -5,28 +5,28 @@
  * @Complete Time: Wed Oct 19 20:28:07 CST 2016
  * 
  * @接口说明：
- * unsigned int length() 返回链表长度
- * void add(T x) 尾插入x到链表
- * @param 数值x
- * void traversal() 遍历链表，输出数据到控制台
- * bool isEmpty() 返回bool类型
- * SlistNode *find(T x) 查找x返回指向x的指针
- * @param 数值x
- * void Delete(T x) 没有返回值
- * @param x 数值x
- * void insert(T x, SlistNode<T> *p) 在节点*P的后面插入一个节点x,可以做为尾插入
- * @param x 数值x
- * @param *p 插入前节点的指针
- * void insertHead(T x) 头插入
- * @param 数值x
- * void reverse_list() 链表的逆置
- * return_headnode_point() //返回链表头指针
+ *     unsigned int length() 返回链表长度
+ *     void add(T x) 尾插入x到链表
+ *     @param 数值x
+ *     void traversal() 遍历链表，输出数据到控制台
+ *     bool isEmpty() 返回bool类型
+ *     SlistNode *find(T x) 查找x返回指向x的指针
+ *     @param 数值x
+ *     void Delete(T x) 没有返回值
+ *     @param x 数值x
+ *     void insert(T x, SlistNode<T> *p) 在节点*P的后面插入一个节点x,可以做为尾插入
+ *     @param x 数值x
+ *     @param *p 插入前节点的指针
+ *     void insertHead(T x) 头插入
+ *     @param 数值x
+ *     void reverse_list() 链表的逆置
+ *     return_headnode_point() //返回链表头指针
  *
  * @属性说明：
- * listlength
- * *node 辅助节点
- * *lastnode 头节点
- * *headnode 尾节点
+ *     listlength
+ *     *node 辅助节点
+ *     *lastnode 头节点
+ *     *headnode 尾节点
  */
 #ifndef _SLIST_H_
 #define _SLIST_H_
