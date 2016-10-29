@@ -6,20 +6,30 @@
  * 
  * @接口说明：
  *     unsigned int length() 返回链表长度
+ *
  *     void add(T x) 尾插入x到链表
  *     @param 数值x
+ *
  *     void traversal() 遍历链表，输出数据到控制台
+ *
  *     bool isEmpty() 返回bool类型
- *     SlistNode *find(T x) 查找x返回指向x的指针
+ *
+ *     SlistNode *find(T x) 按学号查找x返回指向x的指针
  *     @param 数值x
- *     void Delete(T x) 没有返回值
+ *     @return node
+ *
+ *     void Delete(T x) 按学号查找没有返回值
  *     @param x 数值x
+ *
  *     void insert(T x, SlistNode<T> *p) 在节点*P的后面插入一个节点x,可以做为尾插入
  *     @param x 数值x
  *     @param *p 插入前节点的指针
+ *
  *     void insertHead(T x) 头插入
  *     @param 数值x
+ *
  *     void reverse_list() 链表的逆置
+ *
  *     return_headnode_point() //返回链表头指针
  *
  * @属性说明：
@@ -34,6 +44,7 @@
 
     #include <cstdlib>
     #include <iostream>
+    #include "student.h"
     
     using namespace std;
     
@@ -46,7 +57,7 @@
                 next = NULL;
             }
             T data;
-             SlistNode *next;
+            SlistNode *next;
     };
     template<typename T>
     class Mylist
@@ -91,11 +102,16 @@
         headnode = NULL;
         listlength = 0;
     }
+
     template<typename T>
     void Mylist<T> :: add(T x)
     { 
         node = new SlistNode<T>(); 
-        node -> data = x;
+        node -> data.number_ = x.number_;
+        node -> data.name_ = x.name_;
+        node -> data.birthday_ = x.birthday_;
+        node -> data.sex_ = x.sex_;
+        node -> data.condition_ = x.condition_;
         node -> next = NULL;
         if (lastnode == NULL)
         {
@@ -109,39 +125,43 @@
         }
         ++listlength;
     }
+
     template<typename T>
     void Mylist<T> :: traversal()
     {
         node = headnode;
         while (node != NULL)
         {
-            cout << node -> data << " ";
+            cout << node -> data.number_ << " " << node -> data.name_ << " " << node -> data.birthday_ << " " << node -> data.sex_ << " " << node -> data.condition_ << " " << endl;
             node = node -> next;
         }
         cout << endl;
     }
+
     template<typename T>
     bool Mylist<T> :: isEmpty()
     {
         return listlength == 0;
     }
+
     template<typename T>
     SlistNode<T> *Mylist<T> :: find(T x)
     {
         node = headnode;
-        while (node != NULL && node -> data != x)
+        while (node != NULL && node -> data.number_ != x.number_)
         {
             node = node -> next;
         }
         return node;
     }
+
     template<typename T>
     void Mylist<T> :: Delete(T x)
     {
         SlistNode<T> *temp = headnode;
         if (temp == NULL)   
             return;
-        if (temp -> data == x)
+        if (temp -> data.number_ == x.number_)
         {
             headnode = temp -> next;
             if (temp -> next == NULL)
@@ -150,7 +170,7 @@
             --listlength;
             return;
         }
-        while (temp -> next != NULL && temp -> next -> data != x)
+        while (temp -> next != NULL && temp -> next -> data.number_ != x.number_)
         {
             temp = temp -> next;
         }
@@ -172,6 +192,7 @@
             node = NULL;
         }
     }
+
     template<typename T>
     void Mylist<T> :: insert(T x,SlistNode<T> *p)
     {
@@ -185,11 +206,16 @@
             lastnode == node;
         listlength++;
     }
+
     template<typename T>
     void Mylist<T> :: insertHead(T x)
     {
         node = new SlistNode<T>();
-        node -> data = x;
+        node -> data.number_ = x.number_;
+        node -> data.name_ = x.name_;
+        node -> data.birthday_= x.birthday_;
+        node -> data.sex_ = x.sex_;
+        node -> data.condition_ = x.condition_;
         node -> next = headnode;
         headnode = node;
         listlength++;
