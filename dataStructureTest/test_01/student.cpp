@@ -128,17 +128,18 @@ void ReadForFile()
  * 10.向文件写入所有学生健康表信息
  */
 template<typename T>
-void write_file(StudentList<T> object)
+void WriteFile(StudentList<T> object)
 {
     StudentNode<T> *tmp = new StudentNode<T>();
     tmp = object.return_headnode_point();
     fstream write_file;
-    write_file.open("student_info", ios::out | ios::binary);
+    write_file.open("student_info", ios::out | ios::binary | ios::trunc);
     while (tmp != NULL)
     {
-        write_file.write((char *)tmp, sizeof(Student));
+        write_file.write((char *)&(tmp -> data), sizeof(Student));
         tmp = tmp -> next;
     }
+    write_file.close();
 }
 
 /*
@@ -221,7 +222,7 @@ void choose(StudentList<T> &object)
             ReadForFile();
             break;
         case 10:
-            write_file(object);
+            WriteFile(object);
             break;
         case 11:
             Exit();
