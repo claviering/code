@@ -13,10 +13,9 @@ using namespace std;
  * 1.新建学生健康表
  * @return 链表的头指针
  */
-template<typename T>
 StudentList<Student> *CreatNewList()
 {
-    StudentList<Student> new_list = new StudentList<Student>;
+    StudentList<Student> *new_list = new StudentList<Student>;
     return new_list;
 }
 
@@ -96,7 +95,7 @@ void SearchInfo(StudentList<T> &object, int number)
     Student node;
     node.number_ = number;
     StudentNode<T> *tmp_node = object.find(node); 
-    cout << tmp_node -> number_ << endl << tmp_node -> name_ << endl << tmp_node -> birthday_ << endl << tmp_node -> sex_ << endl << tmp_node -> condition_ << endl;
+    cout << tmp_node -> data.number_ << endl << tmp_node -> data.name_ << endl << tmp_node -> data.birthday_ << endl << tmp_node -> data.sex_ << endl << tmp_node -> data.condition_ << endl;
 }
 
 /*
@@ -111,7 +110,6 @@ void DisplayAllStudentInfo(StudentList<T> &object)
 /*
  * 9.从文件读取所有学生健康表信息
  */
-template<typename T>
 void ReadForFile()
 {
     Student stu_node;
@@ -130,12 +128,14 @@ void ReadForFile()
 template<typename T>
 void write_file(StudentList<T> object)
 {
-    StudentList<T> tmp = object.return_headnode_point();
+    StudentNode<T> *tmp = new StudentNode<T>();
+    tmp = object.return_headnode_point();
     fstream write_file;
     write_file.open("student_info", ios::out | ios::binary);
-    while (tmp != NULL)
+    while (tmp -> next != NULL)
     {
-        write_file.write((char *)(tmp -> data), sizeof(Student));
+        write_file.write((char *)tmp, sizeof(Student));
+        tmp = tmp -> next;
     }
 }
 
@@ -169,46 +169,69 @@ void ShowMenu()
 
 }
 
-    /*
-     *功能选择函数
-     *@param 
-     */
-void choose()
+/*
+ *功能选择函数
+ *@param 
+ */
+template<typename T>
+void choose(StudentList<T> &object)
 {
+    ShowMenu();
     int n;
     cin >> n;
     switch(n)
     {
         case 1:
+            CreatNewList();
             break;
         case 2:
+            AddNewInfo(object);
             break;
         case 3:
+            cout << "input location" << endl;
+            int location;
+            cin >> location;
+            InsertNewInfo(object,location);
             break;
         case 4:
+            cout << "input student number" << endl;
+            int number;
+            cin >> number;
+            DeleteInfo(object,number);
             break;
         case 5:
+            cout << "input student number" << endl;
+            cin >> number;
+            ModifyInfo(object,number);
             break;
         case 6:
+            SortAndDisplayAllStudentInfo(object);
             break;
         case 7:
+            cout << "input student number" << endl;
+            cin >> number;
+            SearchInfo(object,number);
             break;
         case 8:
+            DisplayAllStudentInfo(object);
             break;
         case 9:
+            ReadForFile();
             break;
         case 10:
+            write_file(object);
             break;
         case 11:
+            Exit();
             break;
     }
 
 }
 
-
 int main()
 {
-    choose();
+    StudentList<Student> obj;
+    choose(obj);
     return 0;
 }
 

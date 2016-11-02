@@ -46,6 +46,7 @@
 #define _SLIST_H_
 
     #include <cstdlib>
+    #include <cstring>
     #include <iostream>
     #include "student.h"
     
@@ -118,10 +119,10 @@
     { 
         node = new StudentNode<T>(); 
         node -> data.number_ = x.number_;
-        node -> data.name_ = x.name_;
-        node -> data.birthday_ = x.birthday_;
-        node -> data.sex_ = x.sex_;
-        node -> data.condition_ = x.condition_;
+        strncpy(node -> data.name_, x.name_, 256);
+        strncpy(node -> data.birthday_, x.birthday_, 256);
+        strncpy(node -> data.sex_, x.sex_, 256);
+        strncpy(node -> data.condition_, x.condition_, 256);
         node -> next = NULL;
         if (lastnode == NULL)
         {
@@ -210,10 +211,10 @@
             return;
         node = new StudentNode<T>();
         node -> data.number_ = x.number_;
-        node -> data.name_ = x.name_;
-        node -> data.birthday_= x.birthday_;
-        node -> data.sex_ = x.sex_;
-        node -> data.condition_ = x.condition_;
+        strncpy(node -> data.name_, x.name_, 256);
+        strncpy(node -> data.birthday_, x.birthday_, 256);
+        strncpy(node -> data.sex_, x.sex_, 256);
+        strncpy(node -> data.condition_, x.condition_, 256);
         node -> next = p -> next;
         p -> next = node;
         if (node -> next == NULL)
@@ -226,10 +227,10 @@
     {
         node = new StudentNode<T>();
         node -> data.number_ = x.number_;
-        node -> data.name_ = x.name_;
-        node -> data.birthday_= x.birthday_;
-        node -> data.sex_ = x.sex_;
-        node -> data.condition_ = x.condition_;
+        strncpy(node -> data.name_, x.name_, 256);
+        strncpy(node -> data.birthday_, x.birthday_, 256);
+        strncpy(node -> data.sex_, x.sex_, 256);
+        strncpy(node -> data.condition_, x.condition_, 256);
         node -> next = headnode;
         headnode = node;
         listlength++;
