@@ -34,6 +34,10 @@ class Student
         void SetData();
 };
 
+/*
+ *设置学生信息
+ *输入名字，生日，性别，身体状况
+ */
 void Student::SetData()
 {
     cout << "input student name birthday sex condition" << endl;
