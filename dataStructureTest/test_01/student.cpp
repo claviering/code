@@ -119,7 +119,9 @@ void ReadForFile()
     {
         read_file.read((char *)&stu_node, sizeof(Student));
         cout << stu_node.number_ << endl << stu_node.name_ << endl << stu_node.birthday_ << endl <<  stu_node.sex_ << endl <<  stu_node.condition_ << endl;
+        cout << endl;
     }
+    read_file.close();
 }
 
 /*
@@ -132,7 +134,7 @@ void write_file(StudentList<T> object)
     tmp = object.return_headnode_point();
     fstream write_file;
     write_file.open("student_info", ios::out | ios::binary);
-    while (tmp -> next != NULL)
+    while (tmp != NULL)
     {
         write_file.write((char *)tmp, sizeof(Student));
         tmp = tmp -> next;
@@ -156,7 +158,7 @@ void ShowMenu()
 {
     cout << "1.新建学生健康表" << endl 
          << "2.向学生健康表添加新的学生信息" << endl 
-         << "3.向学生健康表插入新的学生信息(按位置号来描述)" << endl 
+         << "3.向学生健康表插入新的学生信息(按位置号来描述从0开始)" << endl 
          << "4.在健康表删除指定学生的信息(按学号操作)" << endl 
          << "5.为某个学生修改身体状况信息(按学号操作)" << endl 
          << "6.按学生的学号排序并显示结果" << endl 
@@ -231,7 +233,8 @@ void choose(StudentList<T> &object)
 int main()
 {
     StudentList<Student> obj;
-    choose(obj);
+    while (1)
+        choose(obj);
     return 0;
 }
 
