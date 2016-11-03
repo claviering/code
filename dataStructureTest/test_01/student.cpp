@@ -110,15 +110,15 @@ void DisplayAllStudentInfo(StudentList<T> &object)
 /*
  * 9.从文件读取所有学生健康表信息
  */
-void ReadForFile()
+template<typename T>
+void ReadForFile(StudentList<T> object)
 {
-    Student stu_node;
+    StudentNode<T> *stu_node = new StudentNode<T>();
     fstream read_file; 
     read_file.open("student_info", ios::in | ios::binary);
-    while (read_file)
+    while (read_file.read((char *)stu_node, sizeof(StudentNode<T>)))
     {
-        read_file.read((char *)&stu_node, sizeof(Student));
-        cout << stu_node.number_ << endl << stu_node.name_ << endl << stu_node.birthday_ << endl <<  stu_node.sex_ << endl <<  stu_node.condition_ << endl;
+        cout << stu_node->data.number_ << endl << stu_node->data.name_ << endl << stu_node->data.birthday_ << endl <<  stu_node->data.sex_ << endl <<  stu_node->data.condition_ << endl;
         cout << endl;
     }
     read_file.close();
@@ -136,7 +136,7 @@ void WriteFile(StudentList<T> object)
     write_file.open("student_info", ios::out | ios::binary | ios::trunc);
     while (tmp != NULL)
     {
-        write_file.write((char *)&(tmp -> data), sizeof(Student));
+        write_file.write((char *)tmp, sizeof(StudentNode<T>));
         tmp = tmp -> next;
     }
     write_file.close();
@@ -219,7 +219,7 @@ void choose(StudentList<T> &object)
             DisplayAllStudentInfo(object);
             break;
         case 9:
-            ReadForFile();
+            ReadForFile(object);
             break;
         case 10:
             WriteFile(object);
