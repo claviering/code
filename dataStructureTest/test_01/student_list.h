@@ -35,9 +35,11 @@
  *     StudentNode<T> *Findlocation(int x); //返回位置x的指针
  *     *@param x 位置x,x为整数
  *
+ *     void SortList(); //链表排序
+ *
  * @属性说明：
  *     Student stu
- *     listlength
+ *     list_length
  *     *node 辅助节点
  *     *lastnode 头节点
  *     *headnode 尾节点
@@ -68,8 +70,8 @@
     class StudentList
     {
         private:
-            Student stu;
-            unsigned int listlength;
+            T stu;
+            unsigned int list_length;
             StudentNode<T> *node;
             StudentNode<T> *lastnode;
             StudentNode<T> *headnode;
@@ -84,6 +86,7 @@
             void insert(T x,StudentNode<T> *p);
             void insertHead(T x);
             void reverse_list();
+            void SortList();
             StudentNode<T> *return_headnode_point();
             StudentNode<T> *Findlocation(int x);
     };
@@ -91,7 +94,7 @@
     template<typename T>
     unsigned int StudentList<T> :: length()
     {
-        return listlength;
+        return list_length;
     }
 
     template<typename T>
@@ -106,7 +109,7 @@
         node = NULL;
         lastnode = NULL;
         headnode = NULL;
-        listlength = 0;
+        list_length = 0;
     }
 
     /*
@@ -134,7 +137,7 @@
             lastnode->next = node;
             lastnode = node;
         }
-        ++listlength;
+        ++list_length;
     }
 
     template<typename T>
@@ -152,7 +155,7 @@
     template<typename T>
     bool StudentList<T> :: isEmpty()
     {
-        return listlength == 0;
+        return list_length == 0;
     }
 
     template<typename T>
@@ -178,7 +181,7 @@
             if (temp -> next == NULL)
                 lastnode = NULL;
             delete(temp);
-            --listlength;
+            --list_length;
             return;
         }
         while (temp -> next != NULL && temp -> next -> data.number_ != x.number_)
@@ -191,7 +194,7 @@
         {
             lastnode = temp;
             delete (temp -> next);
-            --listlength;
+            --list_length;
             temp -> next = NULL;
         }
         else
@@ -199,7 +202,7 @@
             node = temp -> next;
             temp -> next = node -> next;
             delete (node);
-            --listlength;
+            --list_length;
             node = NULL;
         }
     }
@@ -219,7 +222,7 @@
         p -> next = node;
         if (node -> next == NULL)
             lastnode == node;
-        listlength++;
+        list_length++;
     }
 
     template<typename T>
@@ -233,7 +236,7 @@
         strncpy(node -> data.condition_, x.condition_, 256);
         node -> next = headnode;
         headnode = node;
-        listlength++;
+        list_length++;
     }
 
     /*
@@ -276,6 +279,33 @@
             node = node -> next;    
         }
         return node;
+    }
+
+    template<typename T>
+    void StudentList<T> :: SortList()
+    {
+        StudentNode<T> *move_node = new StudentNode<T>();
+        move_node = headnode -> next;
+        node = headnode;
+        int length = list_length;
+
+        while (length--)
+        {
+            while (move_node != NULL)
+            {
+                if (node -> data.number_ > move_node -> data.number_)
+                {
+                    Student tmp_data;
+                    tmp_data = node -> data;
+                    node -> data = move_node -> data;
+                    move_node -> data = tmp_data;
+                }
+
+                node = node -> next;
+                move_node = move_node -> next;
+            }
+        }
+
     }
 
 #endif 

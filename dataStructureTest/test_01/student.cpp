@@ -81,6 +81,7 @@ void ModifyInfo(StudentList<T> &object, int number)
 template<typename T>
 void SortAndDisplayAllStudentInfo(StudentList<T> &object)
 {
+    object.SortList();
     object.traversal(); 
 }
 
@@ -113,12 +114,12 @@ void DisplayAllStudentInfo(StudentList<T> &object)
 template<typename T>
 void ReadForFile(StudentList<T> object)
 {
-    StudentNode<T> *stu_node = new StudentNode<T>();
+    Student stu_node;
     fstream read_file; 
     read_file.open("student_info", ios::in | ios::binary);
-    while (read_file.read((char *)stu_node, sizeof(StudentNode<T>)))
+    while (read_file.read((char *)&stu_node, sizeof(Student)))
     {
-        cout << stu_node->data.number_ << endl << stu_node->data.name_ << endl << stu_node->data.birthday_ << endl <<  stu_node->data.sex_ << endl <<  stu_node->data.condition_ << endl;
+        cout << stu_node.number_ << endl << stu_node.name_ << endl << stu_node.birthday_ << endl <<  stu_node.sex_ << endl <<  stu_node.condition_ << endl;
         cout << endl;
     }
     read_file.close();
@@ -136,7 +137,7 @@ void WriteFile(StudentList<T> object)
     write_file.open("student_info", ios::out | ios::binary | ios::trunc);
     while (tmp != NULL)
     {
-        write_file.write((char *)tmp, sizeof(StudentNode<T>));
+        write_file.write((char *)&(tmp -> data), sizeof(Student));
         tmp = tmp -> next;
     }
     write_file.close();
