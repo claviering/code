@@ -13,10 +13,14 @@ using namespace std;
  * 1.新建学生健康表
  * @return 链表的头指针
  */
-StudentList<Student> *CreatNewList()
+template<typename T>
+void CreatNewList(StudentList<T> &object)
 {
-    StudentList<Student> *new_list = new StudentList<Student>;
-    return new_list;
+    while (!object.isEmpty())
+    {
+        StudentNode<T> *p = object.return_headnode_point();
+        object.Delete(p -> data);
+    }
 }
 
 /*
@@ -186,7 +190,7 @@ void choose(StudentList<T> &object)
     switch(n)
     {
         case 1:
-            CreatNewList();
+            CreatNewList(object);
             break;
         case 2:
             AddNewInfo(object);
