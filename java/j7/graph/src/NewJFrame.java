@@ -17,6 +17,7 @@ public class NewJFrame extends javax.swing.JFrame {
     /*
     *计算图形周长面积
     *声明对象
+    *
     */
     Circular cir = new Circular();
     Regular_Pentagon reg = new Regular_Pentagon();
@@ -73,7 +74,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Triangle");
 
-        jTextField1.setText("输入半径");
+        jTextField1.setText("input r");
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField1FocusGained(evt);
@@ -85,7 +86,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setText("输入边长");
+        jTextField2.setText("input n");
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField2FocusGained(evt);
@@ -97,14 +98,14 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField3.setText("输入边长");
+        jTextField3.setText("input n");
         jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField3FocusGained(evt);
             }
         });
 
-        jTextField4.setText("输入3边");
+        jTextField4.setText("input a");
         jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField4FocusGained(evt);
@@ -116,42 +117,42 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField5.setText("输入3边");
+        jTextField5.setText("input b");
         jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField5FocusGained(evt);
             }
         });
 
-        jTextField6.setText("输入3边");
+        jTextField6.setText("input c");
         jTextField6.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField6FocusGained(evt);
             }
         });
 
-        jButton1.setText("确认");
+        jButton1.setText("OK");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
 
-        jButton2.setText("确认");
+        jButton2.setText("OK");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
             }
         });
 
-        jButton3.setText("确认");
+        jButton3.setText("OK");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
             }
         });
 
-        jButton4.setText("确认");
+        jButton4.setText("OK");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton4MouseClicked(evt);
@@ -356,9 +357,6 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        calc in = new calc();
-        in.input_date(args);
-        in.display_total();
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -389,67 +387,3 @@ public class NewJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-class calc
-{
-    public double total_area;
-    public double total_perimeter;
-
-    Circular cir = new Circular();
-    Regular_Pentagon reg = new Regular_Pentagon();
-    Square sq = new Square();
-    Triangle tri = new Triangle();
-
-    public void input_date(String[] args)
-    {
-        for (int i = 0; i < args.length; i++)    
-        {
-            if (args[i].equals("-c"))
-            {
-                cir.r = Double.parseDouble(args[++i]);        
-
-                cir.calc_area();
-                cir.calc_perimeter();
-                cir.display_area();
-                cir.display_perimeter();
-            }
-            else if (args[i].equals("-r"))
-            {
-                reg.n = Double.parseDouble(args[++i]);
-
-                reg.calc_area();
-                reg.calc_perimeter();
-                reg.display_area();
-                reg.display_perimeter();
-            }
-            else if (args[i].equals("-s"))
-            {
-                sq.n = Double.parseDouble(args[++i]);
-
-                sq.calc_area();
-                sq.calc_perimeter();
-                sq.display_area();
-                sq.display_perimeter();
-            }
-            else if (args[i].equals("-t"))
-            {
-                tri.a = Double.parseDouble(args[++i]);
-                tri.b = Double.parseDouble(args[++i]);
-                tri.c = Double.parseDouble(args[++i]);
-
-                tri.calc_area();
-                tri.calc_perimeter();
-                tri.display_area();
-                tri.display_perimeter();
-            }
-        }
-
-        this.total_area = cir.area + reg.area + sq.area + tri.area;
-        this.total_perimeter = cir.perimeter + reg.perimeter + sq.perimeter + tri.perimeter;
-    }
-
-    public void display_total()
-    {
-        System.out.println("the total area: " + this.total_area);
-        System.out.println("the total perimeter: " + this.total_perimeter);
-    }
-}
