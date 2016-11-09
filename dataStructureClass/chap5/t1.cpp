@@ -8,7 +8,8 @@
 #include <iostream>
 using namespace std;
 
-void ChangeLeftRight(Tree* p_tree)
+template<typename T>
+void ChangeLeftRight(TreeNode<T>* p_tree)
 {
     if (p_tree)
     {
@@ -17,7 +18,7 @@ void ChangeLeftRight(Tree* p_tree)
         if (p_tree -> p_right
             ChangeLeftRight(p_tree -> p_right);
 
-        TreeNode* tmp_p = new TreeNode();
+        TreeNode<T>* tmp_p = new TreeNode<T>();
         tmp_p = p_tree -> p_left;
         p_tree -> p_left = p_tree -> right;
         p_tree -> p_righ = tmp_p;

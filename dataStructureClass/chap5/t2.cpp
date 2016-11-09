@@ -14,10 +14,11 @@
 #include <stack>
 using namespace std;
 
-void InOrder(TreeNode* p_root)
+template<typename T>
+void InOrder(TreeNode<T>* p_root)
 {
-    stack<TreeNode*> s;
-    TreeNode *tmp_p = p_root;
+    stack<TreeNode<T>*> s;
+    TreeNode<T> *tmp_p = p_root;
 
     while (!s.isEmpty() || tmp_p != 0)
     {
@@ -31,7 +32,7 @@ void InOrder(TreeNode* p_root)
         {
             tmp_p = s.top();
             s.pop();
-            display(tmp_p);
+            cout << tmp_p -> data << endl;
             tmp_p = tmp_p -> p_right;
         }
     }
