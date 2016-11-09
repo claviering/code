@@ -1,9 +1,12 @@
+//只能计算一位正数
+//使用c++11标准编译
 #include <iostream>
 #include <cstring>
 #include <stack>
 using namespace std;
 
-int priority(char a) {
+int priority(char a) 
+{
     int temp;
     if (a == '*' || a == '/')
         temp = 2;
