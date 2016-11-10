@@ -5,35 +5,32 @@
  * Distributed under terms of the MIT license.
  *
  * 思路：
- * 当前指针不为空，把节点push到栈，往作走，
- * 当前指针为空了，从栈top一个，输出，往右走，
- * 直到栈为空
+ * 当i不超过数组长度，访问，进栈往左走
+ * 栈不为空，就出栈，往右走
  */
 
 #include <iostream>
 #include <stack>
 using namespace std;
 
-template<typename T>
-void InOrder(TreeNode<T>* p_root)
+void InOrder(int[] ar)
 {
-    stack<TreeNode<T>*> s;
-    TreeNode<T> *tmp_p = p_root;
-
-    while (!s.isEmpty() || tmp_p != 0)
+    int i = 0;
+    stack<int> s;
+    while (!s.isEmpty() || i < ar.lenght)
     {
-        while (!tmp_p)
+        while (i < ar.lenght)
         {
-            s.pop(tmp_p);
-            tmp_p = tmp_p -> p_left;
+            cout << ar[i] << endl;
+            s.push(i);
+            i = 2 * i + 1；
         }
 
         if (!s.isEmpty())
         {
-            tmp_p = s.top();
+            i = s.top();
             s.pop();
-            cout << tmp_p -> data << endl;
-            tmp_p = tmp_p -> p_right;
+            i = 2 * i + 2;
         }
     }
 }
