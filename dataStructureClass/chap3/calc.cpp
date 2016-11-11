@@ -6,7 +6,7 @@
  * 多为整数的算术表达式计算 
  *
  * 为了实现对多为整数的运算
- * 先把字符串转成数字保存到队列里
+ * 先把字符串转成数字保存到队列里,并且保存为负数，解决输出后缀表达式的问题
  * 运算符对应的ascii码
  * +43
  * -45
@@ -31,9 +31,9 @@ using namespace std;
 int priority(int a) 
 {
     int temp;
-    if (a == 42 || a == 47)
+    if (a == -42 || a == -47)
         temp = 2;
-    else if (a == 43 || a == 45)
+    else if (a == -43 || a == -45)
         temp = 1;
     return temp;
 }
@@ -44,7 +44,7 @@ int priority(int a)
  */
 bool isOperator(int a)
 {
-    if (a == 43 || a == 45 || a == 42 || a == 47)
+    if (a == -43 || a == -45 || a == -42 || a == -47)
         return true;
     else 
         return false;
@@ -76,7 +76,7 @@ void ChangeToNumber(string infix,queue<int> &q)
                 n = 0.00;
             }
             int oper_int = (int)infix[i];
-            q.push(oper_int);
+            q.push(-oper_int);
             is_number = 0;
         }
     }
@@ -110,13 +110,13 @@ void getPostfixExp(string infix,queue<int> &postfix)
             }
             operator_stack.push(p);
         }
-        else if (p == 40)
+        else if (p == -40)
         {
             operator_stack.push(p);
         }
-        else if (p == 41)
+        else if (p == -41)
         {
-            while (operator_stack.top() != 40)
+            while (operator_stack.top() != -40)
             {
                 postfix.push(operator_stack.top());
                 operator_stack.pop();
@@ -162,22 +162,22 @@ int postfixCalculate(queue<int> &postfix)
     {
         int p = postfix.front();
         postfix.pop();
-        if (p == 42)
+        if (p == -42)
         {
             getTwoNums(num_stack, first, second);
             num_stack.push(first * second);
         }
-        else if (p == 47)
+        else if (p == -47)
         {
             getTwoNums(num_stack, first, second);
             num_stack.push(first / second);
         }
-        else if (p == 43)
+        else if (p == -43)
         {
             getTwoNums(num_stack, first, second);
             num_stack.push(first + second);
         }
-        else if (p == 45)
+        else if (p == -45)
         {
             getTwoNums(num_stack, first, second);
             num_stack.push(first - second);
@@ -202,10 +202,10 @@ void DisplayPostfix(queue<int> q)
     {
         int n = q.front();
         q.pop();
-        if (n >= 0 && n <= 9)
+        if (n > 0)
             cout << n << " ";
         else
-            cout << (char)n << " ";
+            cout << (char)-n << " ";
     }
     cout << endl;
 }
