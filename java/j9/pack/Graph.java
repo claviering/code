@@ -18,7 +18,7 @@ public abstract class Graph
     public int y;
     public int width;
     public int height;
-    Color color = Color.RED;
+    public Color color = Color.RED;
 
 
     public abstract void calc_area();

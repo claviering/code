@@ -16,6 +16,7 @@ import my_math.*;
 
 public class my_frame extends JFrame
 {
+    //get screen size
     public int max_size_width;
     public int max_size_hight;
     void GetScreenSize()
@@ -27,9 +28,7 @@ public class my_frame extends JFrame
         max_size_hight = (int)height;
     }
 
-    // Define constants
-    public static final int CANVAS_WIDTH  = 640;
-    public static final int CANVAS_HEIGHT = 480;
+    Circular cir = new Circular(0,0,0,0,Color.RED);
 
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
@@ -48,18 +47,29 @@ public class my_frame extends JFrame
 
             // Your custom painting codes. For example,
             // Drawing primitive shapes
-            g.setColor(Color.YELLOW);    // set the drawing color
-            g.drawLine(30, 40, 100, 200);
-            g.drawOval(150, 180, 10, 10);
-            g.drawRect(200, 210, 20, 30);
-            g.setColor(Color.RED);       // change the drawing color
-            g.fillOval(300, 310, 30, 50);
-            g.fillRect(400, 350, 60, 50);
+            /*
+             *g.setColor(Color.YELLOW);    // set the drawing color
+             *g.drawLine(30, 40, 100, 200);
+             *g.drawOval(150, 180, 10, 10);
+             *g.drawRect(200, 210, 20, 30);
+             *g.setColor(Color.RED);       // change the drawing color
+             *g.fillOval(300, 310, 30, 50);
+             *g.fillRect(400, 350, 60, 50);
+             */
             // Printing texts
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Monospaced", Font.PLAIN, 12));
-            g.drawString("Testing custom drawing ...", 10, 20);
+            /*
+             *g.setColor(Color.WHITE);
+             *g.setFont(new Font("Monospaced", Font.PLAIN, 12));
+             *g.drawString("Testing custom drawing ...", 10, 20);
+             */
+
+            cir.paint(g);
         }
+    }
+
+    void DrwaCircular()
+    {
+
     }
 
 
@@ -68,21 +78,42 @@ public class my_frame extends JFrame
      */
     public void ShowText()
     {
-        JFrame app_text = new JFrame("input r");
+        JFrame app_text = new JFrame("input");
 
         //show clean
         app_text.setUndecorated(true);
         app_text.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        app_text.setSize(400,80);
-        app_text.setLocation(0,0);
+        app_text.setSize(650,140);
+        app_text.setLocationRelativeTo(null);  // center the application window
+        //app_text.setLocation(0,0);
         Container c = app_text.getContentPane();
         c.setLayout(new FlowLayout());
-
-        JTextField[] text = {new JTextField("input r",10), new JTextField("0",10)};
-        text[0].setEditable(false);
-        c.add(text[0]); //only text
-        c.add(text[1]); //input r
+       
+            JTextField[] cir_text = {new JTextField("Circular",10), new JTextField("r",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)};
+            cir_text[0].setEditable(false);
+            for (int i = 0; i < 5; i++)
+            {
+                c.add(cir_text[i]); 
+            }
+            JTextField[] reg_text = {new JTextField("Reg",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)};
+            reg_text[0].setEditable(false);
+            for (int i = 0; i < 5; i++)
+            {
+                c.add(reg_text[i]); 
+            }
+            JTextField[] squ_text = {new JTextField("squ",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)};
+            squ_text[0].setEditable(false);
+            for (int i = 0; i < 5; i++)
+            {
+                c.add(squ_text[i]); 
+            }
+            JTextField[] tri_text = {new JTextField("tri",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)};
+            tri_text[0].setEditable(false);
+            for (int i = 0; i < 5; i++)
+            {
+                c.add(tri_text[i]); 
+            }
 
         JButton[] b = {new JButton("OK"),new JButton("Cancel")};
         c.add(b[0]);
@@ -103,8 +134,19 @@ public class my_frame extends JFrame
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    String s = text[1].getText();
-                    System.out.println(s);
+                    String s_r = cir_text[1].getText();
+                    cir.width = Integer.parseInt(s_r);
+                    cir.height = cir.width;
+                    String s_x = cir_text[2].getText();
+                    cir.x = Integer.parseInt(s_x);
+                    String s_y = cir_text[3].getText();
+                    cir.y = Integer.parseInt(s_y);
+                    String s_coloer = cir_text[4].getText();
+                    cir.color = Color.red;
+                    canvas.repaint(0,0,0,0);
+                    canvas.repaint(cir.x, cir.y, cir.width, cir.height);
+
+                    app_text.dispose(); //close frame
                 }
             }
         );
@@ -128,8 +170,10 @@ public class my_frame extends JFrame
         for (int i = 0; i < m_t.length; i++)
         {
             m[0].add(m_t[i]);
+        }
 
-            m_t[i].addActionListener(new ActionListener()
+            //Add event
+            m_t[0].addActionListener(new ActionListener()
                 {
                     public void actionPerformed(ActionEvent e)
                     {
@@ -138,7 +182,26 @@ public class my_frame extends JFrame
                     }
                 }
             );
-        }
+            
+            //Delete event
+            m_t[1].addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        JMenuItem m = (JMenuItem)e.getSource();
+                    }
+                }
+            );
+
+            //Modify event
+            m_t[2].addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        JMenuItem m = (JMenuItem)e.getSource();
+                    }
+                }
+            );
 
  
 
@@ -149,24 +212,12 @@ public class my_frame extends JFrame
 
         Container c = frame.getContentPane();
         c.setLayout(new FlowLayout());
-        JButton b = new JButton("love");
-        b.setLocation(100,100);
-        c.add(b);
-        //love event
-        b.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
-                    System.out.println("love");
-                }
-            }
-        );
 
         /*
          *添加画板
          */
         canvas = new DrawCanvas();    // Construct the drawing canvas
-        canvas.setPreferredSize(new Dimension(frame.getWidth(), CANVAS_HEIGHT));
+        canvas.setPreferredSize(new Dimension(frame.getWidth(), frame.getHeight()));
         c.add(canvas);
 
     }
