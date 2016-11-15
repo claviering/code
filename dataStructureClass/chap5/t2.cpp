@@ -13,20 +13,20 @@
 #include <stack>
 using namespace std;
 
-void InOrder(int[] ar)
+void InOrder(int ar[],int lenght)
 {
     int i = 0;
     stack<int> s;
-    while (!s.isEmpty() || i < ar.lenght)
+    while (!s.empty() || i < lenght)
     {
-        while (i < ar.lenght)
+        while (i < lenght)
         {
             cout << ar[i] << endl;
             s.push(i);
-            i = 2 * i + 1；
+            i = 2 * i + 1;
         }
 
-        if (!s.isEmpty())
+        if (!s.empty())
         {
             i = s.top();
             s.pop();
@@ -37,6 +37,7 @@ void InOrder(int[] ar)
 
 int main()
 {
-    
+    int ar[] = {1,2,3,4,5,6,9};    
+    InOrder(ar,7);
     return 0;
 }
