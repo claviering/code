@@ -5,29 +5,36 @@
  * Distributed under terms of the MIT license.
  */
 
+#include "Tree.h"
 #include <iostream>
 using namespace std;
 
-template<typename T>
-void ChangeLeftRight(TreeNode<T>* p_tree)
+void ChangeLeftRight(TreeNode* p_tree)
 {
     if (p_tree)
     {
-        if (p_tree -> p_left)
-            ChangeLeftRight(p_tree -> p_left);
-        if (p_tree -> p_right
-            ChangeLeftRight(p_tree -> p_right);
+        if (p_tree -> lson_)
+            ChangeLeftRight(p_tree -> lson_);
+        if (p_tree -> rson_)
+            ChangeLeftRight(p_tree -> rson_);
 
-        TreeNode<T>* tmp_p = new TreeNode<T>();
-        tmp_p = p_tree -> p_left;
-        p_tree -> p_left = p_tree -> right;
-        p_tree -> p_righ = tmp_p;
-        delete tmp_P;
+        TreeNode *tmp_p = new TreeNode;
+        tmp_p = p_tree -> lson_;
+        p_tree -> lson_ = p_tree -> rson_;
+        p_tree -> rson_ = tmp_p;
+        tmp_p = 0;
+        delete tmp_p;
     }
 }
 
 int main()
 {
-    
+    Tree t;
+    t.Creat();
+    t.DisplayInOrder(t.GetRoot());
+    cout << endl;
+    ChangeLeftRight(t.GetRoot());
+    cout << endl;
+    t.DisplayInOrder(t.GetRoot());
     return 0;
 }
