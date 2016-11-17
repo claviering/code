@@ -14,6 +14,7 @@
  * |____ my_frame() 构造函数，显示图形界面
  */
 
+import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -40,6 +41,12 @@ public class my_frame extends JFrame
 
     // object to paint
     Circular cir = new Circular(0,0,0,0,Color.RED);
+    Vector<Circular> v_cir = new Vector<Circular>();
+    public void AddCirToVector(Circular cir)
+    {
+        v_cir.addElement(cir);
+    }
+
     Regular_Pentagon reg = new Regular_Pentagon(0,0,0,0,Color.RED);
     Square squ = new Square(0,0,0,0,Color.RED);
     Triangle tri = new Triangle(0,0,0,0,Color.RED);
@@ -53,6 +60,11 @@ public class my_frame extends JFrame
     private DrawCanvas canvas;
     private class DrawCanvas extends JPanel 
     {
+        public DrawCanvas()
+        {
+
+            AddCirToVector(cir);
+        }
         // Override paintComponent to perform your own painting
         @Override
         public void paintComponent(Graphics g) 
@@ -60,7 +72,11 @@ public class my_frame extends JFrame
             super.paintComponent(g);     // paint parent's background
             setBackground(Color.BLACK);  // set background color for this JPanel
 
-            cir.paint(g);
+            //cir.paint(g);
+            for (Circular c : v_cir)
+            {
+                c.paint(g);
+            }
             //reg.paint(g);
             squ.paint(g);
             //tri.paint(g);
@@ -156,25 +172,27 @@ public class my_frame extends JFrame
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
             {
+                Circular tmp_cir = new Circular(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                cir.color = color;
+                tmp_cir.color = color;
                     String s_r = text[0][1].getText();
-                    cir.width = Integer.parseInt(s_r);
-                    cir.height = cir.width;
-                    cir.r = cir.width / 2;
+                    tmp_cir.width = Integer.parseInt(s_r);
+                    tmp_cir.height = tmp_cir.width;
+                    tmp_cir.r = tmp_cir.width / 2;
                     String s_x = text[0][2].getText();
-                    cir.x = Integer.parseInt(s_x);
+                    tmp_cir.x = Integer.parseInt(s_x);
                     String s_y = text[0][3].getText();
-                    cir.y = Integer.parseInt(s_y);
+                    tmp_cir.y = Integer.parseInt(s_y);
                     String s_coloer = text[0][4].getText();
-                    canvas.repaint(cir.x, cir.y, cir.width, cir.height);
+                    canvas.repaint(tmp_cir.x, tmp_cir.y, tmp_cir.width, tmp_cir.height);
 
-                    cir.calc_area();
-                    cir.calc_perimeter();
+                    tmp_cir.calc_area();
+                    tmp_cir.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(cir.area) + " per is " + Double.toString(cir.perimeter);
-                    str.x = cir.x;
-                    str.y = cir.y;
+                    str.s = "area is " + Double.toString(tmp_cir.area) + " per is " + Double.toString(tmp_cir.perimeter);
+                    str.x = tmp_cir.x;
+                    str.y = tmp_cir.y;
+                    AddCirToVector(tmp_cir);
                     app_text.dispose(); //close frame
                     canvas.repaint();
             }
