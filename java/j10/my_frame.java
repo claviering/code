@@ -48,8 +48,26 @@ public class my_frame extends JFrame
     }
 
     Regular_Pentagon reg = new Regular_Pentagon(0,0,0,0,Color.RED);
+    Vector<Regular_Pentagon> v_reg = new Vector<Regular_Pentagon>();
+    public void AddCirToVector(Regular_Pentagon reg)
+    {
+        v_reg.addElement(reg);
+    }
+
     Square squ = new Square(0,0,0,0,Color.RED);
+    Vector<Square> v_squ = new Vector<Square>();
+    public void AddCirToVector(Square squ)
+    {
+        v_squ.addElement(squ);
+    }
+
     Triangle tri = new Triangle(0,0,0,0,Color.RED);
+    Vector<Triangle> v_tri = new Vector<Triangle>();
+    public void AddCirToVector(Triangle tri)
+    {
+        v_tri.addElement(tri);
+    }
+
     string str = new string("LOVE",0,0);
 
     // Declare an instance of the drawing canvas,
@@ -64,6 +82,9 @@ public class my_frame extends JFrame
         {
 
             AddCirToVector(cir);
+            AddCirToVector(reg);
+            AddCirToVector(squ);
+            AddCirToVector(tri);
         }
         // Override paintComponent to perform your own painting
         @Override
@@ -77,31 +98,46 @@ public class my_frame extends JFrame
             {
                 c.paint(g);
             }
+
             //reg.paint(g);
-            squ.paint(g);
-            //tri.paint(g);
-            str.paint(g);
-
             // Draw Regular_Pentagon
-            Polygon p = new Polygon();
-            for (int i = 0; i < 5; i++)
-              p.addPoint((int) (reg.x + reg.width * Math.cos(i * 2 * Math.PI / 5)),
-                  (int) (reg.y + reg.width * Math.sin(i * 2 * Math.PI / 5))); //100 是坐标，90是大小
+            for (Regular_Pentagon r : v_reg)
+            {
+                Polygon p = new Polygon();
+                for (int i = 0; i < 5; i++)
+                  p.addPoint((int) (r.x + r.width * Math.cos(i * 2 * Math.PI / 5)),
+                      (int) (r.y + r.width * Math.sin(i * 2 * Math.PI / 5))); //100 是坐标，90是大小
 
-            g.setColor(reg.color);
-            g.drawPolygon(p);
+                g.setColor(r.color);
+                g.drawPolygon(p);
 
+            }
+
+            //Draw Square
+            for (Square s : v_squ)
+            {
+                s.paint(g);
+            }
+
+            //tri.paint(g);
             //Draw Triangle
-            int x0 = (int)tri.x; 
-            int y0 = (int)(tri.y - tri.a * 2 / 3);
-            int x1 = (int)(tri.x + tri.a / 2);
-            int y1 = (int)(tri.y + tri.a * 1 / 3);
-            int x2 = (int)(tri.x - tri.a / 2);
-            int y2 = (int)(tri.y + tri.a * 1 / 3);
-            g.setColor(tri.color);
-            g.drawLine(x0, y0, x1, y1);
-            g.drawLine(x1, y1, x2, y2);
-            g.drawLine(x2, y2, x0, y0);
+            for (Triangle t : v_tri)
+            {
+                int x0 = (int)t.x; 
+                int y0 = (int)(t.y - t.a * 2 / 3);
+                int x1 = (int)(t.x + t.a / 2);
+                int y1 = (int)(t.y + t.a * 1 / 3);
+                int x2 = (int)(t.x - t.a / 2);
+                int y2 = (int)(t.y + t.a * 1 / 3);
+                g.setColor(t.color);
+                g.drawLine(x0, y0, x1, y1);
+                g.drawLine(x1, y1, x2, y2);
+                g.drawLine(x2, y2, x0, y0);
+
+            }
+
+            //Draw string
+            str.paint(g);
         }
     }
 
@@ -228,26 +264,28 @@ public class my_frame extends JFrame
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
             {
+                Regular_Pentagon tmp_reg = new Regular_Pentagon(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                reg.color = color;
+                tmp_reg.color = color;
                     String s_r = text[1][1].getText();
-                    reg.width = Integer.parseInt(s_r);
-                    reg.height = reg.width;
-                    reg.n = reg.width / 2;
+                    tmp_reg.width = Integer.parseInt(s_r);
+                    tmp_reg.height = tmp_reg.width;
+                    tmp_reg.n = tmp_reg.width / 2;
                     String s_x = text[1][2].getText();
-                    reg.x = Integer.parseInt(s_x);
+                    tmp_reg.x = Integer.parseInt(s_x);
                     String s_y = text[1][3].getText();
-                    reg.y = Integer.parseInt(s_y);
+                    tmp_reg.y = Integer.parseInt(s_y);
                     String s_coloer = text[1][4].getText();
                     canvas.repaint(0,0,0,0);
-                    canvas.repaint(reg.x, reg.y, reg.width, reg.height);
+                    canvas.repaint(tmp_reg.x, tmp_reg.y, tmp_reg.width, tmp_reg.height);
 
-                    reg.calc_area();
-                    reg.calc_perimeter();
+                    tmp_reg.calc_area();
+                    tmp_reg.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(reg.area) + " per is " + Double.toString(reg.perimeter);
-                    str.x = reg.x;
-                    str.y = reg.y;
+                    str.s = "area is " + Double.toString(tmp_reg.area) + " per is " + Double.toString(tmp_reg.perimeter);
+                    str.x = tmp_reg.x;
+                    str.y = tmp_reg.y;
+                    AddCirToVector(tmp_reg);
                     app_text.dispose(); //close frame
                     canvas.repaint();
             }
@@ -283,26 +321,28 @@ public class my_frame extends JFrame
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
             {
+                Square tmp_squ = new Square(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                squ.color = color;
+                tmp_squ.color = color;
                     String s_r = text[2][1].getText();
-                    squ.width = Integer.parseInt(s_r);
-                    squ.height = squ.width;
-                    squ.n = squ.width / 2;
+                    tmp_squ.width = Integer.parseInt(s_r);
+                    tmp_squ.height = tmp_squ.width;
+                    tmp_squ.n = tmp_squ.width / 2;
                     String s_x = text[2][2].getText();
-                    squ.x = Integer.parseInt(s_x);
+                    tmp_squ.x = Integer.parseInt(s_x);
                     String s_y = text[2][3].getText();
-                    squ.y = Integer.parseInt(s_y);
+                    tmp_squ.y = Integer.parseInt(s_y);
                     String s_coloer = text[2][4].getText();
                     canvas.repaint(0,0,0,0);
-                    canvas.repaint(squ.x, squ.y, squ.width, squ.height);
+                    canvas.repaint(tmp_squ.x, tmp_squ.y, tmp_squ.width, tmp_squ.height);
 
-                    squ.calc_area();
-                    squ.calc_perimeter();
+                    tmp_squ.calc_area();
+                    tmp_squ.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(squ.area) + " per is " + Double.toString(squ.perimeter);
-                    str.x = squ.x;
-                    str.y = squ.y;
+                    str.s = "area is " + Double.toString(tmp_squ.area) + " per is " + Double.toString(tmp_squ.perimeter);
+                    str.x = tmp_squ.x;
+                    str.y = tmp_squ.y;
+                    AddCirToVector(tmp_squ);
                     app_text.dispose(); //close frame
                     canvas.repaint();
             }
@@ -338,26 +378,28 @@ public class my_frame extends JFrame
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
             {
+                Triangle tmp_tri = new Triangle(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                tri.color = color;
+                tmp_tri.color = color;
                     String s_r = text[3][1].getText();
-                    tri.width = Integer.parseInt(s_r);
-                    tri.height = tri.width;
-                    tri.a = tri.width / 2;
+                    tmp_tri.width = Integer.parseInt(s_r);
+                    tmp_tri.height = tmp_tri.width;
+                    tmp_tri.a = tmp_tri.width / 2;
                     String s_x = text[3][2].getText();
-                    tri.x = Integer.parseInt(s_x);
+                    tmp_tri.x = Integer.parseInt(s_x);
                     String s_y = text[3][3].getText();
-                    tri.y = Integer.parseInt(s_y);
+                    tmp_tri.y = Integer.parseInt(s_y);
                     String s_coloer = text[3][4].getText();
                     canvas.repaint(0,0,0,0);
-                    canvas.repaint(tri.x, tri.y, tri.width, tri.height);
+                    canvas.repaint(tmp_tri.x, tmp_tri.y, tmp_tri.width, tmp_tri.height);
 
-                    tri.calc_area();
-                    tri.calc_perimeter();
+                    tmp_tri.calc_area();
+                    tmp_tri.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(tri.area) + " per is " + Double.toString(tri.perimeter);
-                    str.x = tri.x;
-                    str.y = tri.y;
+                    str.s = "area is " + Double.toString(tmp_tri.area) + " per is " + Double.toString(tmp_tri.perimeter);
+                    str.x = tmp_tri.x;
+                    str.y = tmp_tri.y;
+                    AddCirToVector(tmp_tri);
                     app_text.dispose(); //close frame
                     canvas.repaint();
             }
