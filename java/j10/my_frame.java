@@ -42,33 +42,53 @@ public class my_frame extends JFrame
     // object to paint
     Circular cir = new Circular(0,0,0,0,Color.RED);
     Vector<Circular> v_cir = new Vector<Circular>();
-    public void AddCirToVector(Circular cir)
+    public void AddGraphToVector(Circular cir)
     {
         v_cir.addElement(cir);
     }
 
     Regular_Pentagon reg = new Regular_Pentagon(0,0,0,0,Color.RED);
     Vector<Regular_Pentagon> v_reg = new Vector<Regular_Pentagon>();
-    public void AddCirToVector(Regular_Pentagon reg)
+    public void AddGraphToVector(Regular_Pentagon reg)
     {
         v_reg.addElement(reg);
     }
 
     Square squ = new Square(0,0,0,0,Color.RED);
     Vector<Square> v_squ = new Vector<Square>();
-    public void AddCirToVector(Square squ)
+    public void AddGraphToVector(Square squ)
     {
         v_squ.addElement(squ);
     }
 
     Triangle tri = new Triangle(0,0,0,0,Color.RED);
     Vector<Triangle> v_tri = new Vector<Triangle>();
-    public void AddCirToVector(Triangle tri)
+    public void AddGraphToVector(Triangle tri)
     {
         v_tri.addElement(tri);
     }
 
     string str = new string("LOVE",0,0);
+    Vector<string> v_str_cir = new Vector<string>();
+    Vector<string> v_str_reg = new Vector<string>();
+    Vector<string> v_str_squ = new Vector<string>();
+    Vector<string> v_str_tri = new Vector<string>();
+    public void AddStringToVector(Circular c, string s)
+    {
+        v_str_cir.addElement(s);
+    }
+    public void AddStringToVector(Regular_Pentagon r, string s)
+    {
+        v_str_reg.addElement(s);
+    }
+    public void AddStringToVector(Square sq, string s)
+    {
+        v_str_squ.addElement(s);
+    }
+    public void AddStringToVector(Triangle t, string s)
+    {
+        v_str_tri.addElement(s);
+    }
 
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
@@ -81,17 +101,21 @@ public class my_frame extends JFrame
         public DrawCanvas()
         {
 
-            AddCirToVector(cir);
-            AddCirToVector(reg);
-            AddCirToVector(squ);
-            AddCirToVector(tri);
+            AddGraphToVector(cir);
+            AddGraphToVector(reg);
+            AddGraphToVector(squ);
+            AddGraphToVector(tri);
+            AddStringToVector(cir,str);
+            AddStringToVector(reg,str);
+            AddStringToVector(squ,str);
+            AddStringToVector(tri,str);
         }
         // Override paintComponent to perform your own painting
         @Override
         public void paintComponent(Graphics g) 
         {
             super.paintComponent(g);     // paint parent's background
-            setBackground(Color.BLACK);  // set background color for this JPanel
+            setBackground(Color.white);  // set background color for this JPanel
 
             //cir.paint(g);
             for (Circular c : v_cir)
@@ -137,7 +161,22 @@ public class my_frame extends JFrame
             }
 
             //Draw string
-            str.paint(g);
+            for (string s : v_str_cir)
+            {
+                s.paint(g);
+            }
+            for (string s : v_str_reg)
+            {
+                s.paint(g);
+            }
+            for (string s : v_str_squ)
+            {
+                s.paint(g);
+            }
+            for (string s : v_str_tri)
+            {
+                s.paint(g);
+            }
         }
     }
 
@@ -204,13 +243,14 @@ public class my_frame extends JFrame
             }
         });
         // color text event
-        text[0][4].addFocusListener(new java.awt.event.FocusAdapter() 
+        text[0][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
-            public void focusGained(java.awt.event.FocusEvent evt) 
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 Circular tmp_cir = new Circular(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_cir.color = color;
+                text[0][4].setBackground(color);
                     String s_r = text[0][1].getText();
                     tmp_cir.width = Integer.parseInt(s_r);
                     tmp_cir.height = tmp_cir.width;
@@ -220,17 +260,19 @@ public class my_frame extends JFrame
                     String s_y = text[0][3].getText();
                     tmp_cir.y = Integer.parseInt(s_y);
                     String s_coloer = text[0][4].getText();
-                    canvas.repaint(tmp_cir.x, tmp_cir.y, tmp_cir.width, tmp_cir.height);
 
                     tmp_cir.calc_area();
                     tmp_cir.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(tmp_cir.area) + " per is " + Double.toString(tmp_cir.perimeter);
-                    str.x = tmp_cir.x;
-                    str.y = tmp_cir.y;
-                    AddCirToVector(tmp_cir);
-                    app_text.dispose(); //close frame
-                    canvas.repaint();
+                    int index_string = v_cir.size(); // string 的编号
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_cir.area) + " per is " + Double.toString(tmp_cir.perimeter);
+                    tmp_str.x = tmp_cir.x;
+                    tmp_str.y = tmp_cir.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_cir,tmp_str);
+                    AddGraphToVector(tmp_cir);
+                    app_text.toFront();
             }
         });
 
@@ -260,13 +302,14 @@ public class my_frame extends JFrame
             }
         });
         // color text event
-        text[1][4].addFocusListener(new java.awt.event.FocusAdapter() 
+        text[1][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
-            public void focusGained(java.awt.event.FocusEvent evt) 
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 Regular_Pentagon tmp_reg = new Regular_Pentagon(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_reg.color = color;
+                text[1][4].setBackground(color);
                     String s_r = text[1][1].getText();
                     tmp_reg.width = Integer.parseInt(s_r);
                     tmp_reg.height = tmp_reg.width;
@@ -277,17 +320,19 @@ public class my_frame extends JFrame
                     tmp_reg.y = Integer.parseInt(s_y);
                     String s_coloer = text[1][4].getText();
                     canvas.repaint(0,0,0,0);
-                    canvas.repaint(tmp_reg.x, tmp_reg.y, tmp_reg.width, tmp_reg.height);
 
                     tmp_reg.calc_area();
                     tmp_reg.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(tmp_reg.area) + " per is " + Double.toString(tmp_reg.perimeter);
-                    str.x = tmp_reg.x;
-                    str.y = tmp_reg.y;
-                    AddCirToVector(tmp_reg);
-                    app_text.dispose(); //close frame
-                    canvas.repaint();
+                    int index_string = v_reg.size(); // string 的编号
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_reg.area) + " per is " + Double.toString(tmp_reg.perimeter);
+                    tmp_str.x = tmp_reg.x;
+                    tmp_str.y = tmp_reg.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_reg,tmp_str);
+                    AddGraphToVector(tmp_reg);
+                    app_text.toFront();
             }
         });
 
@@ -317,13 +362,14 @@ public class my_frame extends JFrame
             }
         });
         // color text event
-        text[2][4].addFocusListener(new java.awt.event.FocusAdapter() 
+        text[2][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
-            public void focusGained(java.awt.event.FocusEvent evt) 
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 Square tmp_squ = new Square(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_squ.color = color;
+                text[2][4].setBackground(color);
                     String s_r = text[2][1].getText();
                     tmp_squ.width = Integer.parseInt(s_r);
                     tmp_squ.height = tmp_squ.width;
@@ -334,17 +380,19 @@ public class my_frame extends JFrame
                     tmp_squ.y = Integer.parseInt(s_y);
                     String s_coloer = text[2][4].getText();
                     canvas.repaint(0,0,0,0);
-                    canvas.repaint(tmp_squ.x, tmp_squ.y, tmp_squ.width, tmp_squ.height);
 
                     tmp_squ.calc_area();
                     tmp_squ.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(tmp_squ.area) + " per is " + Double.toString(tmp_squ.perimeter);
-                    str.x = tmp_squ.x;
-                    str.y = tmp_squ.y;
-                    AddCirToVector(tmp_squ);
-                    app_text.dispose(); //close frame
-                    canvas.repaint();
+                    int index_string = v_squ.size(); // string 的编号
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_squ.area) + " per is " + Double.toString(tmp_squ.perimeter);
+                    tmp_str.x = tmp_squ.x;
+                    tmp_str.y = tmp_squ.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_squ,tmp_str);
+                    AddGraphToVector(tmp_squ);
+                    app_text.toFront();
             }
         });
         
@@ -374,13 +422,14 @@ public class my_frame extends JFrame
             }
         });
         // color text event
-        text[3][4].addFocusListener(new java.awt.event.FocusAdapter() 
+        text[3][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
-            public void focusGained(java.awt.event.FocusEvent evt) 
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 Triangle tmp_tri = new Triangle(0,0,0,0,Color.RED);
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_tri.color = color;
+                text[3][4].setBackground(color);
                     String s_r = text[3][1].getText();
                     tmp_tri.width = Integer.parseInt(s_r);
                     tmp_tri.height = tmp_tri.width;
@@ -391,17 +440,19 @@ public class my_frame extends JFrame
                     tmp_tri.y = Integer.parseInt(s_y);
                     String s_coloer = text[3][4].getText();
                     canvas.repaint(0,0,0,0);
-                    canvas.repaint(tmp_tri.x, tmp_tri.y, tmp_tri.width, tmp_tri.height);
 
                     tmp_tri.calc_area();
                     tmp_tri.calc_perimeter();
 
-                    str.s = "area is " + Double.toString(tmp_tri.area) + " per is " + Double.toString(tmp_tri.perimeter);
-                    str.x = tmp_tri.x;
-                    str.y = tmp_tri.y;
-                    AddCirToVector(tmp_tri);
-                    app_text.dispose(); //close frame
-                    canvas.repaint();
+                    int index_string = v_tri.size(); // string 的编号
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_tri.area) + " per is " + Double.toString(tmp_tri.perimeter);
+                    tmp_str.x = tmp_tri.x;
+                    tmp_str.y = tmp_tri.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_tri,tmp_str);
+                    AddGraphToVector(tmp_tri);
+                    app_text.toFront();
             }
         });
 
@@ -421,24 +472,6 @@ public class my_frame extends JFrame
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    String s_r = text[0][1].getText();
-                    cir.width = Integer.parseInt(s_r);
-                    cir.height = cir.width;
-                    cir.r = cir.width / 2;
-                    String s_x = text[0][2].getText();
-                    cir.x = Integer.parseInt(s_x);
-                    String s_y = text[0][3].getText();
-                    cir.y = Integer.parseInt(s_y);
-                    String s_coloer = text[0][4].getText();
-                    canvas.repaint(0,0,0,0);
-                    canvas.repaint(cir.x, cir.y, cir.width, cir.height);
-
-                    cir.calc_area();
-                    cir.calc_perimeter();
-
-                    str.s = "area is " + Double.toString(cir.area) + " per is " + Double.toString(cir.perimeter);
-                    str.x = cir.x;
-                    str.y = cir.y;
                     canvas.repaint();
 
                     app_text.dispose(); //close frame
