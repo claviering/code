@@ -208,26 +208,29 @@ public class my_frame extends JFrame
     JFrame app_text = new JFrame("input");
     // 添加Add控件
     JTextField[][] text = {{new JTextField("Circular",10), new JTextField("r",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("Reg",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("squ",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("tri",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)}};
+    JButton[] b_color = {new JButton("ADD"),new JButton("ADD"),new JButton("ADD"),new JButton("ADD")};
     JButton[] b = {new JButton("OK"),new JButton("Cancel")};
 
     // get Cir r x y color
     public void GetCirTextFileContent()
     {
                 Circular tmp_cir = new Circular(0,0,0,0,Color.RED);
+                String s_r = text[0][1].getText();
+                String s_x = text[0][2].getText();
+                String s_y = text[0][3].getText();
+                tmp_cir.width = Integer.parseInt(s_r);
+                tmp_cir.height = tmp_cir.width;
+                tmp_cir.r = tmp_cir.width / 2;
+                tmp_cir.x = Integer.parseInt(s_x);
+                tmp_cir.y = Integer.parseInt(s_y);
+                for (Circular c : v_cir)
+                {
+                    if (c.x == tmp_cir.x && c.y == tmp_cir.y && c.r == tmp_cir.r)
+                        return;
+                }
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                if (color == null)
-                    color = Color.RED;
                 tmp_cir.color = color;
                 text[0][4].setBackground(color);
-                    String s_r = text[0][1].getText();
-                    tmp_cir.width = Integer.parseInt(s_r);
-                    tmp_cir.height = tmp_cir.width;
-                    tmp_cir.r = tmp_cir.width / 2;
-                    String s_x = text[0][2].getText();
-                    tmp_cir.x = Integer.parseInt(s_x);
-                    String s_y = text[0][3].getText();
-                    tmp_cir.y = Integer.parseInt(s_y);
-                    String s_coloer = text[0][4].getText();
 
                     tmp_cir.calc_area();
                     tmp_cir.calc_perimeter();
@@ -239,27 +242,30 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_cir,tmp_str);
                     AddGraphToVector(tmp_cir);
-                    canvas.repaint();
                     app_text.toFront();
-        
     }
 
     // get reg r x y color
     public void GetRegTextFileContent()
     {
                 Regular_Pentagon tmp_reg = new Regular_Pentagon(0,0,0,0,Color.RED);
+                String s_r = text[1][1].getText();
+                String s_x = text[1][2].getText();
+                String s_y = text[1][3].getText();
+                String s_coloer = text[1][4].getText();
+                tmp_reg.width = Integer.parseInt(s_r);
+                tmp_reg.height = tmp_reg.width;
+                tmp_reg.n = tmp_reg.width / 2;
+                tmp_reg.x = Integer.parseInt(s_x);
+                tmp_reg.y = Integer.parseInt(s_y);
+                for (Regular_Pentagon r : v_reg)
+                {
+                    if (r.x == tmp_reg.x && r.y == tmp_reg.y && r.n == tmp_reg.n)
+                        return;
+                }
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_reg.color = color;
                 text[1][4].setBackground(color);
-                    String s_r = text[1][1].getText();
-                    tmp_reg.width = Integer.parseInt(s_r);
-                    tmp_reg.height = tmp_reg.width;
-                    tmp_reg.n = tmp_reg.width / 2;
-                    String s_x = text[1][2].getText();
-                    tmp_reg.x = Integer.parseInt(s_x);
-                    String s_y = text[1][3].getText();
-                    tmp_reg.y = Integer.parseInt(s_y);
-                    String s_coloer = text[1][4].getText();
 
                     tmp_reg.calc_area();
                     tmp_reg.calc_perimeter();
@@ -271,7 +277,6 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_reg,tmp_str);
                     AddGraphToVector(tmp_reg);
-                    canvas.repaint();
                     app_text.toFront();
 
     }
@@ -280,18 +285,23 @@ public class my_frame extends JFrame
     public void GetSquTextFileContent()
     {
                 Square tmp_squ = new Square(0,0,0,0,Color.RED);
+                String s_r = text[2][1].getText();
+                String s_x = text[2][2].getText();
+                String s_y = text[2][3].getText();
+                String s_coloer = text[2][4].getText();
+                tmp_squ.width = Integer.parseInt(s_r);
+                tmp_squ.height = tmp_squ.width;
+                tmp_squ.n = tmp_squ.width / 2;
+                tmp_squ.x = Integer.parseInt(s_x);
+                tmp_squ.y = Integer.parseInt(s_y);
+                for (Square s : v_squ)
+                {
+                    if (s.x == tmp_squ.x && s.y == tmp_squ.y && s.n == tmp_squ.n)
+                        return;
+                }
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_squ.color = color;
                 text[2][4].setBackground(color);
-                    String s_r = text[2][1].getText();
-                    tmp_squ.width = Integer.parseInt(s_r);
-                    tmp_squ.height = tmp_squ.width;
-                    tmp_squ.n = tmp_squ.width / 2;
-                    String s_x = text[2][2].getText();
-                    tmp_squ.x = Integer.parseInt(s_x);
-                    String s_y = text[2][3].getText();
-                    tmp_squ.y = Integer.parseInt(s_y);
-                    String s_coloer = text[2][4].getText();
 
                     tmp_squ.calc_area();
                     tmp_squ.calc_perimeter();
@@ -303,7 +313,6 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_squ,tmp_str);
                     AddGraphToVector(tmp_squ);
-                    canvas.repaint();
                     app_text.toFront();
 
     }
@@ -311,20 +320,25 @@ public class my_frame extends JFrame
     public void GetTriTextFileContent()
     {
                 Triangle tmp_tri = new Triangle(0,0,0,0,Color.RED);
+                String s_r = text[3][1].getText();
+                String s_x = text[3][2].getText();
+                String s_y = text[3][3].getText();
+                String s_coloer = text[3][4].getText();
+                tmp_tri.width = Integer.parseInt(s_r);
+                tmp_tri.height = tmp_tri.width;
+                tmp_tri.a = tmp_tri.width / 2;
+                tmp_tri.b = tmp_tri.width / 2;
+                tmp_tri.c = tmp_tri.width / 2;
+                tmp_tri.x = Integer.parseInt(s_x);
+                tmp_tri.y = Integer.parseInt(s_y);
+                for (Triangle t : v_tri)
+                {
+                    if (t.x == tmp_tri.x && t.y == tmp_tri.y && t.a == tmp_tri.a)
+                        return;
+                }
                 Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
                 tmp_tri.color = color;
                 text[3][4].setBackground(color);
-                    String s_r = text[3][1].getText();
-                    tmp_tri.width = Integer.parseInt(s_r);
-                    tmp_tri.height = tmp_tri.width;
-                    tmp_tri.a = tmp_tri.width / 2;
-                    tmp_tri.b = tmp_tri.width / 2;
-                    tmp_tri.c = tmp_tri.width / 2;
-                    String s_x = text[3][2].getText();
-                    tmp_tri.x = Integer.parseInt(s_x);
-                    String s_y = text[3][3].getText();
-                    tmp_tri.y = Integer.parseInt(s_y);
-                    String s_coloer = text[3][4].getText();
 
                     tmp_tri.calc_area();
                     tmp_tri.calc_perimeter();
@@ -336,7 +350,6 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_tri,tmp_str);
                     AddGraphToVector(tmp_tri);
-                    canvas.repaint();
                     app_text.toFront();
 
     }
@@ -348,7 +361,7 @@ public class my_frame extends JFrame
         app_text.setUndecorated(true);
         app_text.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        app_text.setSize(650,140);
+        app_text.setSize(700,160);
         app_text.setLocationRelativeTo(null);  // center the application window
         Container c = app_text.getContentPane();
         app_text.setVisible(true);
@@ -357,16 +370,16 @@ public class my_frame extends JFrame
         for (int i = 0; i < 4; i++)
         {
             text[i][0].setEditable(false);
-            //text[i][4].setEditable(false);
         }
        
-            for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 5; j++)
             {
-                for (int j = 0; j < 5; j++)
-                {
-                    c.add(text[i][j]); 
-                }
+                c.add(text[i][j]); 
             }
+            c.add(b_color[i]);
+        }
 
         // 添加两个按钮,cancel按钮没用了，按ok就关闭
         c.add(b[0]);
@@ -380,7 +393,7 @@ public class my_frame extends JFrame
                 text[0][1].setText("");
             }
         });
-        // x text event when get focuse set text
+        // cir x text event when get focuse set text
         text[0][2].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -388,7 +401,7 @@ public class my_frame extends JFrame
                 text[0][2].setText("");
             }
         });
-        // y text event when get focuse set text
+        // cir y text event when get focuse set text
         text[0][3].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -396,7 +409,7 @@ public class my_frame extends JFrame
                 text[0][3].setText("");
             }
         });
-        // color text event
+        // cir color text event
         text[0][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
@@ -411,6 +424,15 @@ public class my_frame extends JFrame
                 GetCirTextFileContent();
             }
         });
+        // cir ADD event
+        b_color[0].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                text[0][4].setBackground(null);
+                canvas.repaint();
+            }
+        });
 
         // paint Regular_Pentagon
         // r text event when get focuse set text
@@ -421,7 +443,7 @@ public class my_frame extends JFrame
                 text[1][1].setText("");
             }
         });
-        // x text event when get focuse set text
+        // reg x text event when get focuse set text
         text[1][2].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -429,7 +451,7 @@ public class my_frame extends JFrame
                 text[1][2].setText("");
             }
         });
-        // y text event when get focuse set text
+        // reg y text event when get focuse set text
         text[1][3].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -437,7 +459,7 @@ public class my_frame extends JFrame
                 text[1][3].setText("");
             }
         });
-        // color text event
+        // reg color text event
         text[1][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
@@ -452,6 +474,15 @@ public class my_frame extends JFrame
                 GetRegTextFileContent();
             }
         });
+        // reg ADD event
+        b_color[1].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                text[1][4].setBackground(null);
+                canvas.repaint();
+            }
+        });
 
         // paint Square 
         // r text event when get focuse set text
@@ -462,7 +493,7 @@ public class my_frame extends JFrame
                 text[2][1].setText("");
             }
         });
-        // x text event when get focuse set text
+        // squ x text event when get focuse set text
         text[2][2].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -470,7 +501,7 @@ public class my_frame extends JFrame
                 text[2][2].setText("");
             }
         });
-        // y text event when get focuse set text
+        // squ y text event when get focuse set text
         text[2][3].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -478,7 +509,7 @@ public class my_frame extends JFrame
                 text[2][3].setText("");
             }
         });
-        // color text event
+        // squ color text event
         text[2][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
@@ -493,6 +524,15 @@ public class my_frame extends JFrame
                 GetSquTextFileContent();
             }
         });
+        // squ ADD event
+        b_color[2].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                text[2][4].setBackground(null);
+                canvas.repaint();
+            }
+        });
         
         // paint Triangle
         // r text event when get focuse set text
@@ -503,7 +543,7 @@ public class my_frame extends JFrame
                 text[3][1].setText("");
             }
         });
-        // x text event when get focuse set text
+        // tri x text event when get focuse set text
         text[3][2].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -511,7 +551,7 @@ public class my_frame extends JFrame
                 text[3][2].setText("");
             }
         });
-        // y text event when get focuse set text
+        // tri y text event when get focuse set text
         text[3][3].addFocusListener(new java.awt.event.FocusAdapter() 
         {
             public void focusGained(java.awt.event.FocusEvent evt) 
@@ -519,7 +559,7 @@ public class my_frame extends JFrame
                 text[3][3].setText("");
             }
         });
-        // color text event
+        // tri color text event
         text[3][4].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
@@ -534,17 +574,15 @@ public class my_frame extends JFrame
                 GetTriTextFileContent();
             }
         });
-
-        //Cancel event
-        b[1].addActionListener(new ActionListener()
+        // tri ADD event
+        b_color[3].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
-                public void actionPerformed(ActionEvent e)
-                {
-                    app_text.dispose(); //close frame
-                }
+                text[3][4].setBackground(null);
+                canvas.repaint();
             }
-        );
-
+        });
 
         //OK event
         b[0].addActionListener(new ActionListener()
@@ -563,11 +601,13 @@ public class my_frame extends JFrame
     // 添加Delete控件
     JTextField[][] delete_text = 
     {
-        {new JTextField("Cir",10), new JTextField("Delete Index",10), new JTextField("Delete",10)},
-        {new JTextField("Reg",10), new JTextField("Delete Index",10), new JTextField("Delete",10)},
-        {new JTextField("Squ",10), new JTextField("Delete Index",10), new JTextField("Delete",10)},
-        {new JTextField("Tri",10), new JTextField("Delete Index",10), new JTextField("Delete",10)}
+        {new JTextField("Cir",10), new JTextField("Delete Index",10)},
+        {new JTextField("Reg",10), new JTextField("Delete Index",10)},
+        {new JTextField("Squ",10), new JTextField("Delete Index",10)},
+        {new JTextField("Tri",10), new JTextField("Delete Index",10)}
     };
+
+    JButton[] b_delete = {new JButton("DELETE"),new JButton("DELETE"),new JButton("DELETE"),new JButton("DELETE")};
 
     JButton delete_button = new JButton("OK");
 
@@ -576,14 +616,13 @@ public class my_frame extends JFrame
     {
         app_delete.setUndecorated(true);
         app_delete.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        app_delete.setSize(400,140);
+        app_delete.setSize(380,160);
         app_delete.setLocationRelativeTo(null);
         app_delete.setVisible(true);
         
         for (int i = 0; i < 4; i++)
         {
             delete_text[i][0].setEditable(false);
-            delete_text[i][2].setEditable(false);
         }
 
         Container c = app_delete.getContentPane();
@@ -591,10 +630,11 @@ public class my_frame extends JFrame
 
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < 2; j++)
             {
                 c.add(delete_text[i][j]); 
             }
+            c.add(b_delete[i]);
         }
         c.add(delete_button);
         
@@ -607,6 +647,7 @@ public class my_frame extends JFrame
                 }
             }
         );
+
         //cir delete index event
         delete_text[0][1].addFocusListener(new java.awt.event.FocusAdapter()
         {
@@ -616,15 +657,18 @@ public class my_frame extends JFrame
             }
         });
         //cir delete event
-        delete_text[0][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        b_delete[0].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 String s_index = delete_text[0][1].getText();
                 int cir_index_delete = Integer.parseInt(s_index);
+                if (cir_index_delete == 0)
+                    return;
                 v_cir.remove(cir_index_delete);
                 v_str_cir.remove(cir_index_delete);
                 canvas.repaint();
+                delete_text[0][1].setText("0");
             }
         });
 
@@ -637,15 +681,18 @@ public class my_frame extends JFrame
             }
         });
         //reg delete event
-        delete_text[1][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        b_delete[1].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 String s_index = delete_text[1][1].getText();
                 int reg_index_delete = Integer.parseInt(s_index);
+                if (reg_index_delete == 0)
+                    return;
                 v_reg.remove(reg_index_delete);
                 v_str_reg.remove(reg_index_delete);
                 canvas.repaint();
+                delete_text[1][1].setText("0");
             }
         });
 
@@ -658,15 +705,18 @@ public class my_frame extends JFrame
             }
         });
         //squ delete event
-        delete_text[2][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        b_delete[2].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 String s_index = delete_text[2][1].getText();
                 int squ_index_delete = Integer.parseInt(s_index);
+                if (squ_index_delete == 0)
+                    return;
                 v_squ.remove(squ_index_delete);
                 v_str_squ.remove(squ_index_delete);
                 canvas.repaint();
+                delete_text[2][1].setText("0");
             }
         });
 
@@ -679,15 +729,18 @@ public class my_frame extends JFrame
             }
         });
         //tri delete event
-        delete_text[3][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        b_delete[3].addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
                 String s_index = delete_text[3][1].getText();
                 int tri_index_delete = Integer.parseInt(s_index);
+                if (tri_index_delete == 0)
+                    return;
                 v_tri.remove(tri_index_delete);
                 v_str_tri.remove(tri_index_delete);
                 canvas.repaint();
+                delete_text[3][1].setText("0");
             }
         });
 
