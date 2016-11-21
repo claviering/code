@@ -10,7 +10,7 @@
  * |____ GetScreenSize() 获取屏幕大小函数
  * |____ Class DrawCanvas extends JPanel 画板类，把画好的图形add到Panel,再add到JFrame
  *         |____ paintComponent(Graphics g) 画图函数，g.draw
- * |____ ShowText() 点击菜单触发函数
+ * |____ AddGraph() 点击菜单触发函数
  * |____ my_frame() 构造函数，显示图形界面
  */
 
@@ -68,7 +68,7 @@ public class my_frame extends JFrame
         v_tri.addElement(tri);
     }
 
-    string str = new string("LOVE",0,0);
+    string str = new string("",0,0);
     Vector<string> v_str_cir = new Vector<string>();
     Vector<string> v_str_reg = new Vector<string>();
     Vector<string> v_str_squ = new Vector<string>();
@@ -98,6 +98,7 @@ public class my_frame extends JFrame
     private DrawCanvas canvas;
     private class DrawCanvas extends JPanel 
     {
+
         public DrawCanvas()
         {
 
@@ -161,21 +162,41 @@ public class my_frame extends JFrame
             }
 
             //Draw string
+            int i = 0;
             for (string s : v_str_cir)
             {
+                s.s = i + s.s;
+                i++;
+                String tmp = s.s.substring(1); //图形个数不超过9个
                 s.paint(g);
+                s.s = tmp;
             }
+            i = 0;
             for (string s : v_str_reg)
             {
+                s.s = i + s.s;
+                i++;
+                String tmp = s.s.substring(1);
                 s.paint(g);
+                s.s = tmp;
             }
+            i = 0;
             for (string s : v_str_squ)
             {
+                s.s = i + s.s;
+                i++;
+                String tmp = s.s.substring(1);
                 s.paint(g);
+                s.s = tmp;
             }
+            i = 0;
             for (string s : v_str_tri)
             {
+                s.s = i + s.s;
+                i++;
+                String tmp = s.s.substring(1);
                 s.paint(g);
+                s.s = tmp;
             }
         }
     }
@@ -184,9 +205,144 @@ public class my_frame extends JFrame
     /*
      *显示输入框
      */
-    public void ShowText()
+    JFrame app_text = new JFrame("input");
+    // 添加Add控件
+    JTextField[][] text = {{new JTextField("Circular",10), new JTextField("r",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("Reg",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("squ",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("tri",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)}};
+    JButton[] b = {new JButton("OK"),new JButton("Cancel")};
+
+    // get Cir r x y color
+    public void GetCirTextFileContent()
     {
-        JFrame app_text = new JFrame("input");
+                Circular tmp_cir = new Circular(0,0,0,0,Color.RED);
+                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
+                if (color == null)
+                    color = Color.RED;
+                tmp_cir.color = color;
+                text[0][4].setBackground(color);
+                    String s_r = text[0][1].getText();
+                    tmp_cir.width = Integer.parseInt(s_r);
+                    tmp_cir.height = tmp_cir.width;
+                    tmp_cir.r = tmp_cir.width / 2;
+                    String s_x = text[0][2].getText();
+                    tmp_cir.x = Integer.parseInt(s_x);
+                    String s_y = text[0][3].getText();
+                    tmp_cir.y = Integer.parseInt(s_y);
+                    String s_coloer = text[0][4].getText();
+
+                    tmp_cir.calc_area();
+                    tmp_cir.calc_perimeter();
+
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = ": area is " + Double.toString(tmp_cir.area) + " per is " + Double.toString(tmp_cir.perimeter);
+                    tmp_str.x = tmp_cir.x;
+                    tmp_str.y = tmp_cir.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_cir,tmp_str);
+                    AddGraphToVector(tmp_cir);
+                    canvas.repaint();
+                    app_text.toFront();
+        
+    }
+
+    // get reg r x y color
+    public void GetRegTextFileContent()
+    {
+                Regular_Pentagon tmp_reg = new Regular_Pentagon(0,0,0,0,Color.RED);
+                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
+                tmp_reg.color = color;
+                text[1][4].setBackground(color);
+                    String s_r = text[1][1].getText();
+                    tmp_reg.width = Integer.parseInt(s_r);
+                    tmp_reg.height = tmp_reg.width;
+                    tmp_reg.n = tmp_reg.width / 2;
+                    String s_x = text[1][2].getText();
+                    tmp_reg.x = Integer.parseInt(s_x);
+                    String s_y = text[1][3].getText();
+                    tmp_reg.y = Integer.parseInt(s_y);
+                    String s_coloer = text[1][4].getText();
+
+                    tmp_reg.calc_area();
+                    tmp_reg.calc_perimeter();
+
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = ": area is " + Double.toString(tmp_reg.area) + " per is " + Double.toString(tmp_reg.perimeter);
+                    tmp_str.x = tmp_reg.x;
+                    tmp_str.y = tmp_reg.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_reg,tmp_str);
+                    AddGraphToVector(tmp_reg);
+                    canvas.repaint();
+                    app_text.toFront();
+
+    }
+
+    // get squ r x y color
+    public void GetSquTextFileContent()
+    {
+                Square tmp_squ = new Square(0,0,0,0,Color.RED);
+                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
+                tmp_squ.color = color;
+                text[2][4].setBackground(color);
+                    String s_r = text[2][1].getText();
+                    tmp_squ.width = Integer.parseInt(s_r);
+                    tmp_squ.height = tmp_squ.width;
+                    tmp_squ.n = tmp_squ.width / 2;
+                    String s_x = text[2][2].getText();
+                    tmp_squ.x = Integer.parseInt(s_x);
+                    String s_y = text[2][3].getText();
+                    tmp_squ.y = Integer.parseInt(s_y);
+                    String s_coloer = text[2][4].getText();
+
+                    tmp_squ.calc_area();
+                    tmp_squ.calc_perimeter();
+
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = ": area is " + Double.toString(tmp_squ.area) + " per is " + Double.toString(tmp_squ.perimeter);
+                    tmp_str.x = tmp_squ.x;
+                    tmp_str.y = tmp_squ.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_squ,tmp_str);
+                    AddGraphToVector(tmp_squ);
+                    canvas.repaint();
+                    app_text.toFront();
+
+    }
+    // get tri r x y color
+    public void GetTriTextFileContent()
+    {
+                Triangle tmp_tri = new Triangle(0,0,0,0,Color.RED);
+                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
+                tmp_tri.color = color;
+                text[3][4].setBackground(color);
+                    String s_r = text[3][1].getText();
+                    tmp_tri.width = Integer.parseInt(s_r);
+                    tmp_tri.height = tmp_tri.width;
+                    tmp_tri.a = tmp_tri.width / 2;
+                    tmp_tri.b = tmp_tri.width / 2;
+                    tmp_tri.c = tmp_tri.width / 2;
+                    String s_x = text[3][2].getText();
+                    tmp_tri.x = Integer.parseInt(s_x);
+                    String s_y = text[3][3].getText();
+                    tmp_tri.y = Integer.parseInt(s_y);
+                    String s_coloer = text[3][4].getText();
+
+                    tmp_tri.calc_area();
+                    tmp_tri.calc_perimeter();
+
+                    string tmp_str = new string("",0,0);
+                    tmp_str.s = ": area is " + Double.toString(tmp_tri.area) + " per is " + Double.toString(tmp_tri.perimeter);
+                    tmp_str.x = tmp_tri.x;
+                    tmp_str.y = tmp_tri.y;
+                    tmp_str.color = color;
+                    AddStringToVector(tmp_tri,tmp_str);
+                    AddGraphToVector(tmp_tri);
+                    canvas.repaint();
+                    app_text.toFront();
+
+    }
+
+    public void AddGraph()
+    {
 
         //show clean
         app_text.setUndecorated(true);
@@ -194,16 +350,16 @@ public class my_frame extends JFrame
 
         app_text.setSize(650,140);
         app_text.setLocationRelativeTo(null);  // center the application window
-        //app_text.setLocation(0,0);
         Container c = app_text.getContentPane();
+        app_text.setVisible(true);
         c.setLayout(new FlowLayout());
+
+        for (int i = 0; i < 4; i++)
+        {
+            text[i][0].setEditable(false);
+            //text[i][4].setEditable(false);
+        }
        
-            // 添加控件
-            JTextField[][] text = {{new JTextField("Circular",10), new JTextField("r",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("Reg",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("squ",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("tri",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)}};
-            text[0][0].setEditable(false);
-            text[1][0].setEditable(false);
-            text[2][0].setEditable(false);
-            text[3][0].setEditable(false);
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -212,10 +368,8 @@ public class my_frame extends JFrame
                 }
             }
 
-        // 添加两个按钮
-        JButton[] b = {new JButton("OK"),new JButton("Cancel")};
+        // 添加两个按钮,cancel按钮没用了，按ok就关闭
         c.add(b[0]);
-        c.add(b[1]);
 
         //paint Circular
         // r text event when get focuse set text
@@ -247,32 +401,14 @@ public class my_frame extends JFrame
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
-                Circular tmp_cir = new Circular(0,0,0,0,Color.RED);
-                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                tmp_cir.color = color;
-                text[0][4].setBackground(color);
-                    String s_r = text[0][1].getText();
-                    tmp_cir.width = Integer.parseInt(s_r);
-                    tmp_cir.height = tmp_cir.width;
-                    tmp_cir.r = tmp_cir.width / 2;
-                    String s_x = text[0][2].getText();
-                    tmp_cir.x = Integer.parseInt(s_x);
-                    String s_y = text[0][3].getText();
-                    tmp_cir.y = Integer.parseInt(s_y);
-                    String s_coloer = text[0][4].getText();
-
-                    tmp_cir.calc_area();
-                    tmp_cir.calc_perimeter();
-
-                    int index_string = v_cir.size(); // string 的编号
-                    string tmp_str = new string("",0,0);
-                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_cir.area) + " per is " + Double.toString(tmp_cir.perimeter);
-                    tmp_str.x = tmp_cir.x;
-                    tmp_str.y = tmp_cir.y;
-                    tmp_str.color = color;
-                    AddStringToVector(tmp_cir,tmp_str);
-                    AddGraphToVector(tmp_cir);
-                    app_text.toFront();
+                GetCirTextFileContent();
+            }
+        });
+        text[0][4].addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt) 
+            {
+                GetCirTextFileContent();
             }
         });
 
@@ -306,33 +442,14 @@ public class my_frame extends JFrame
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
-                Regular_Pentagon tmp_reg = new Regular_Pentagon(0,0,0,0,Color.RED);
-                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                tmp_reg.color = color;
-                text[1][4].setBackground(color);
-                    String s_r = text[1][1].getText();
-                    tmp_reg.width = Integer.parseInt(s_r);
-                    tmp_reg.height = tmp_reg.width;
-                    tmp_reg.n = tmp_reg.width / 2;
-                    String s_x = text[1][2].getText();
-                    tmp_reg.x = Integer.parseInt(s_x);
-                    String s_y = text[1][3].getText();
-                    tmp_reg.y = Integer.parseInt(s_y);
-                    String s_coloer = text[1][4].getText();
-                    canvas.repaint(0,0,0,0);
-
-                    tmp_reg.calc_area();
-                    tmp_reg.calc_perimeter();
-
-                    int index_string = v_reg.size(); // string 的编号
-                    string tmp_str = new string("",0,0);
-                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_reg.area) + " per is " + Double.toString(tmp_reg.perimeter);
-                    tmp_str.x = tmp_reg.x;
-                    tmp_str.y = tmp_reg.y;
-                    tmp_str.color = color;
-                    AddStringToVector(tmp_reg,tmp_str);
-                    AddGraphToVector(tmp_reg);
-                    app_text.toFront();
+                GetRegTextFileContent();
+            }
+        });
+        text[1][4].addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt) 
+            {
+                GetRegTextFileContent();
             }
         });
 
@@ -366,33 +483,14 @@ public class my_frame extends JFrame
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
-                Square tmp_squ = new Square(0,0,0,0,Color.RED);
-                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                tmp_squ.color = color;
-                text[2][4].setBackground(color);
-                    String s_r = text[2][1].getText();
-                    tmp_squ.width = Integer.parseInt(s_r);
-                    tmp_squ.height = tmp_squ.width;
-                    tmp_squ.n = tmp_squ.width / 2;
-                    String s_x = text[2][2].getText();
-                    tmp_squ.x = Integer.parseInt(s_x);
-                    String s_y = text[2][3].getText();
-                    tmp_squ.y = Integer.parseInt(s_y);
-                    String s_coloer = text[2][4].getText();
-                    canvas.repaint(0,0,0,0);
-
-                    tmp_squ.calc_area();
-                    tmp_squ.calc_perimeter();
-
-                    int index_string = v_squ.size(); // string 的编号
-                    string tmp_str = new string("",0,0);
-                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_squ.area) + " per is " + Double.toString(tmp_squ.perimeter);
-                    tmp_str.x = tmp_squ.x;
-                    tmp_str.y = tmp_squ.y;
-                    tmp_str.color = color;
-                    AddStringToVector(tmp_squ,tmp_str);
-                    AddGraphToVector(tmp_squ);
-                    app_text.toFront();
+                GetSquTextFileContent();
+            }
+        });
+        text[2][4].addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt) 
+            {
+                GetSquTextFileContent();
             }
         });
         
@@ -426,33 +524,14 @@ public class my_frame extends JFrame
         {
             public void mouseClicked(java.awt.event.MouseEvent evt) 
             {
-                Triangle tmp_tri = new Triangle(0,0,0,0,Color.RED);
-                Color color = JColorChooser.showDialog(null, "Choose a color", Color.LIGHT_GRAY);
-                tmp_tri.color = color;
-                text[3][4].setBackground(color);
-                    String s_r = text[3][1].getText();
-                    tmp_tri.width = Integer.parseInt(s_r);
-                    tmp_tri.height = tmp_tri.width;
-                    tmp_tri.a = tmp_tri.width / 2;
-                    String s_x = text[3][2].getText();
-                    tmp_tri.x = Integer.parseInt(s_x);
-                    String s_y = text[3][3].getText();
-                    tmp_tri.y = Integer.parseInt(s_y);
-                    String s_coloer = text[3][4].getText();
-                    canvas.repaint(0,0,0,0);
-
-                    tmp_tri.calc_area();
-                    tmp_tri.calc_perimeter();
-
-                    int index_string = v_tri.size(); // string 的编号
-                    string tmp_str = new string("",0,0);
-                    tmp_str.s = index_string + ": area is " + Double.toString(tmp_tri.area) + " per is " + Double.toString(tmp_tri.perimeter);
-                    tmp_str.x = tmp_tri.x;
-                    tmp_str.y = tmp_tri.y;
-                    tmp_str.color = color;
-                    AddStringToVector(tmp_tri,tmp_str);
-                    AddGraphToVector(tmp_tri);
-                    app_text.toFront();
+                GetTriTextFileContent();
+            }
+        });
+        text[3][4].addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt) 
+            {
+                GetTriTextFileContent();
             }
         });
 
@@ -472,13 +551,146 @@ public class my_frame extends JFrame
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    canvas.repaint();
-
                     app_text.dispose(); //close frame
                 }
             }
         );
-        app_text.setVisible(true);
+    }
+
+
+
+    
+    // 添加Delete控件
+    JTextField[][] delete_text = 
+    {
+        {new JTextField("Cir",10), new JTextField("Delete Index",10), new JTextField("Delete",10)},
+        {new JTextField("Reg",10), new JTextField("Delete Index",10), new JTextField("Delete",10)},
+        {new JTextField("Squ",10), new JTextField("Delete Index",10), new JTextField("Delete",10)},
+        {new JTextField("Tri",10), new JTextField("Delete Index",10), new JTextField("Delete",10)}
+    };
+
+    JButton delete_button = new JButton("OK");
+
+    JFrame app_delete = new JFrame("Delete");
+    public void DeleteGraph()
+    {
+        app_delete.setUndecorated(true);
+        app_delete.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        app_delete.setSize(400,140);
+        app_delete.setLocationRelativeTo(null);
+        app_delete.setVisible(true);
+        
+        for (int i = 0; i < 4; i++)
+        {
+            delete_text[i][0].setEditable(false);
+            delete_text[i][2].setEditable(false);
+        }
+
+        Container c = app_delete.getContentPane();
+        c.setLayout(new FlowLayout());
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                c.add(delete_text[i][j]); 
+            }
+        }
+        c.add(delete_button);
+        
+        //OK event in delete
+        delete_button.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    app_delete.dispose(); //close frame
+                }
+            }
+        );
+        //cir delete index event
+        delete_text[0][1].addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                delete_text[0][1].setText("");
+            }
+        });
+        //cir delete event
+        delete_text[0][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                String s_index = delete_text[0][1].getText();
+                int cir_index_delete = Integer.parseInt(s_index);
+                v_cir.remove(cir_index_delete);
+                v_str_cir.remove(cir_index_delete);
+                canvas.repaint();
+            }
+        });
+
+        //reg delete index event
+        delete_text[1][1].addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                delete_text[1][1].setText("");
+            }
+        });
+        //reg delete event
+        delete_text[1][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                String s_index = delete_text[1][1].getText();
+                int reg_index_delete = Integer.parseInt(s_index);
+                v_reg.remove(reg_index_delete);
+                v_str_reg.remove(reg_index_delete);
+                canvas.repaint();
+            }
+        });
+
+        //squ delete index event
+        delete_text[2][1].addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                delete_text[2][1].setText("");
+            }
+        });
+        //squ delete event
+        delete_text[2][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                String s_index = delete_text[2][1].getText();
+                int squ_index_delete = Integer.parseInt(s_index);
+                v_squ.remove(squ_index_delete);
+                v_str_squ.remove(squ_index_delete);
+                canvas.repaint();
+            }
+        });
+
+        //tri delete index event
+        delete_text[3][1].addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                delete_text[3][1].setText("");
+            }
+        });
+        //tri delete event
+        delete_text[3][2].addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt) 
+            {
+                String s_index = delete_text[3][1].getText();
+                int tri_index_delete = Integer.parseInt(s_index);
+                v_tri.remove(tri_index_delete);
+                v_str_tri.remove(tri_index_delete);
+                canvas.repaint();
+            }
+        });
+
     }
 
     public my_frame()
@@ -506,7 +718,7 @@ public class my_frame extends JFrame
                     public void actionPerformed(ActionEvent e)
                     {
                         JMenuItem m = (JMenuItem)e.getSource();
-                        ShowText();
+                        AddGraph();
                     }
                 }
             );
@@ -517,6 +729,7 @@ public class my_frame extends JFrame
                     public void actionPerformed(ActionEvent e)
                     {
                         JMenuItem m = (JMenuItem)e.getSource();
+                        DeleteGraph();
                     }
                 }
             );
