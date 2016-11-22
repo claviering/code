@@ -607,6 +607,7 @@ public class my_frame extends JFrame
         {new JTextField("Tri",10), new JTextField("Delete Index",10)}
     };
 
+    // delete code below
     JButton[] b_delete = {new JButton("DELETE"),new JButton("DELETE"),new JButton("DELETE"),new JButton("DELETE")};
 
     JButton delete_button = new JButton("OK");
@@ -746,6 +747,29 @@ public class my_frame extends JFrame
 
     }
 
+
+    // Modify code below
+    JTextField[][] modify_text = 
+    {
+        {new JTextField("Cir",10), new JTextField("new r",10), new JTextField("new x",10), new JTextField("new y",10), new JTextField("new Color",10)},
+        {new JTextField("Reg",10), new JTextField("new n",10), new JTextField("new x",10), new JTextField("new y",10), new JTextField("new Color",10)},
+        {new JTextField("squ",10), new JTextField("new n",10), new JTextField("new x",10), new JTextField("new y",10), new JTextField("new Color",10)},
+        {new JTextField("tri",10), new JTextField("new n",10), new JTextField("new x",10), new JTextField("new y",10), new JTextField("new Color",10)}
+    };
+
+    JFrame app_mod = new JFrame("Modify");
+    public void ModifyGraph()
+    {
+        app_mod.setUndecorated(true);
+        app_mod.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        app_mod.setSize(380,160);
+        app_mod.setLocationRelativeTo(null);
+        app_mod.setVisible(true);
+        Container c = app_mod.getContentPane();
+        c.setLayout(new FlowLayout());
+
+    }
+
     public my_frame()
     {
 
@@ -793,6 +817,7 @@ public class my_frame extends JFrame
                     public void actionPerformed(ActionEvent e)
                     {
                         JMenuItem m = (JMenuItem)e.getSource();
+                        ModifyGraph();
                     }
                 }
             );
