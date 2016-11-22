@@ -21,7 +21,6 @@ void InOrder(int ar[],int lenght)
     {
         while (i < lenght)
         {
-            cout << ar[i] << endl;
             s.push(i);
             i = 2 * i + 1;
         }
@@ -29,6 +28,7 @@ void InOrder(int ar[],int lenght)
         if (!s.empty())
         {
             i = s.top();
+            cout << ar[i] << endl;
             s.pop();
             i = 2 * i + 2;
         }
