@@ -25,6 +25,10 @@ class Tree
         ~Tree();
         void Creat();
         void DestroyTree();
+        int CalcSize(TreeNode<T> *root);
+        int CalcDepth(TreeNode<T> *root);
+        void DisplayTree();
+        void ChangeLeftRight(TreeNode *root);
     private:
         TreeNode<T> *root_;
         TreeNode<T> *CreatTree();
@@ -182,5 +186,51 @@ void PostOrderVisitUnRec(TreeNode<T> *root)
     } 
 }
 
+int Tree::CalcSize(TreeNode<T> *root)
+{
+    if (root == NULL)
+        return 0;
+    else
+        return 1 + CalcSize(root -> lson_) + CalcSize(root -> rson_)
+}
 
+int Tree::CalcDepth(TreeNode<T> *root)
+{
+    int left_depth = 0;
+    int right_depth = 0;
+    if (root == NULL)
+        return 0;
+    else
+    {
+        left_depth = CalcDepth(root -> lson_);
+        right_depth = CalcDepth(root -> sson_);
+        if (left_depth > right_depth)
+            return left_depth;
+        else
+            return right_depth;
+    }
+}
+
+void Tree::DisplayTree()
+{
+
+}
+
+void Tree::ChangeLeftRight(TreeNode *root)
+{
+    if (root)
+    {
+        if (root -> lson_)
+            ChangeLeftRight(root -> lson_);
+        if (root -> rson_)
+            ChangeLeftRight(root -> rson_);
+
+        TreeNode *tmp_p = new TreeNode;
+        tmp_p = root -> lson_;
+        root -> lson_ = root -> rson_;
+        root -> rson_ = tmp_p;
+        tmp_p = 0;
+        delete tmp_p;
+    }
+}
 #endif /* !TREE_H */
