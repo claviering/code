@@ -134,25 +134,34 @@ TreeNode<T> *Tree<T>::CreatTree()
 template<typename T>
 void Tree<T>::PreOrderVisit(TreeNode<T> *root)
 {
-    cout << root -> data_ << endl;;
-    PreOrderVisit(root -> lson_);
-    PreOrderVisit(root -> rson_);
+    if (root != NULL)
+    {
+        cout << root -> data_ << endl;;
+        PreOrderVisit(root -> lson_);
+        PreOrderVisit(root -> rson_);
+    }
 }
 
 template<typename T>
 void Tree<T>::InOrderVisit(TreeNode<T> *root)
 {
-    PreOrderVisit(root -> lson_);
-    cout << root -> data_ << endl;;
-    PreOrderVisit(root -> rson_);
+    if (root != NULL)
+    {
+        PreOrderVisit(root -> lson_);
+        cout << root -> data_ << endl;;
+        PreOrderVisit(root -> rson_);
+    }
 }
 
 template<typename T>
 void Tree<T>::PostOrderVisit(TreeNode<T> *root)
 {
-    PreOrderVisit(root -> lson_);
-    PreOrderVisit(root -> rson_);
-    cout << root -> data_ << endl;;
+    if (root != NULL)
+    {
+        PreOrderVisit(root -> lson_);
+        PreOrderVisit(root -> rson_);
+        cout << root -> data_ << endl;;
+    }
 }
 
 template<typename T>
@@ -160,7 +169,7 @@ void Tree<T>::PreOrderUnRec(TreeNode<T> *root)
 {
     TreeNode<T> *tmp = root;
     stack<TreeNode<T>*> s;
-    while (!s.empty() || tmp != NULL)
+    while ((!s.empty()) || (tmp != NULL))
     {
         while (tmp != NULL)
         {
@@ -173,7 +182,7 @@ void Tree<T>::PreOrderUnRec(TreeNode<T> *root)
         {
             tmp = s.top();
             s.pop();
-            tmp = tmp -> lson_;
+            tmp = tmp -> rson_;
         }
     }
 }
@@ -183,7 +192,7 @@ void Tree<T>::InOrderUnRec(TreeNode<T> *root)
 {
     TreeNode<T> *tmp = root;
     stack<TreeNode<T>*> s;
-    while (!s.empty() || tmp != NULL)
+    while ((!s.empty()) || (tmp != NULL))
     {
         while (tmp != NULL)
         {
@@ -196,7 +205,7 @@ void Tree<T>::InOrderUnRec(TreeNode<T> *root)
             tmp = s.top();
             cout << tmp -> data_ << endl;
             s.pop();
-            tmp = tmp -> lson_;
+            tmp = tmp -> rson_;
         }
     }
 }
@@ -249,8 +258,8 @@ int Tree<T>::CalcSize(TreeNode<T> *root)
 template<typename T>
 int Tree<T>::CalcDepth(TreeNode<T> *root)
 {
-    int left_depth = 0;
-    int right_depth = 0;
+    int left_depth;
+    int right_depth;
     if (root == NULL)
         return 0;
     else
@@ -258,9 +267,9 @@ int Tree<T>::CalcDepth(TreeNode<T> *root)
         left_depth = CalcDepth(root -> lson_);
         right_depth = CalcDepth(root -> rson_);
         if (left_depth > right_depth)
-            return left_depth;
+            return left_depth + 1;
         else
-            return right_depth;
+            return right_depth + 1;
     }
 }
 

@@ -19,17 +19,17 @@ using namespace std;
  */
 void ShowMenu()
 {
-    cout << "1." << endl 
-         << "2." << endl 
-         << "3." << endl 
-         << "4." << endl 
-         << "5." << endl 
-         << "6." << endl 
-         << "7." << endl
-         << "8." << endl 
-         << "9." << endl 
-         << "10." << endl 
-         << "11." << endl 
+    cout << "1.建立一棵二叉树" << endl 
+         << "2.前序遍历递归算法" << endl 
+         << "3.前序遍历非递归算法" << endl 
+         << "4.中序遍历递归算法" << endl 
+         << "5.中序遍历非递归算法" << endl 
+         << "6.后序遍历递归算法" << endl 
+         << "7.后序遍历非递归算法" << endl
+         << "8.求树高" << endl 
+         << "9.求叶子总数" << endl 
+         << "10.输出二叉树" << endl 
+         << "11.交换左右子树" << endl 
          << "12.退出" << endl; 
     cout << "input choose" << endl;
 
@@ -69,10 +69,11 @@ void choose(Tree<T> &object)
             object.PostOrderVisitUnRec(object.GetRoot());
             break;
         case 8:
-            object.CalcDepth(object.GetRoot());
+            
+            cout << "depth is " << object.CalcDepth(object.GetRoot()) << endl;
             break;
         case 9:
-            object.CalcSize(object.GetRoot());
+            cout << "size is " << object.CalcSize(object.GetRoot()) << endl;
             break;
         case 10:
             object.DisplayTree();
@@ -89,6 +90,7 @@ void choose(Tree<T> &object)
 int main()
 {
     Tree<int> my_tree;
-    choose(my_tree);
+    while (1)
+        choose(my_tree);
     return 0;
 }
