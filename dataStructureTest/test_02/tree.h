@@ -5,8 +5,29 @@
  * Distributed under terms of the WTFPL license.
  */
 
+/*
+ * 二叉树
+ * 属性：
+ * root_ 根节点
+ * 方法：
+ * void Creat(); // 新建二叉树
+ * void DestroyTree(); // 删除二叉树
+ * int CalcSize(TreeNode<T> *root); // 计算叶子节点
+ * int CalcDepth(TreeNode<T> *root); // 计算二叉树深度
+ * void DisplayTree(); // 输出二叉树
+ * void ChangeLeftRight(TreeNode *root); // 左右子树交换
+ * void PreOrderVisit(TreeNode<T> *root); // 前序遍历
+ * void InOrderVisit(TreeNode<T> *root); // 中序遍历
+ * void PostOrderVisit(TreeNode<T> *root); // 后序遍历
+ *
+ */
+
 #ifndef TREE_H
 #define TREE_H
+
+#include <iostream>
+#include <stack>
+using namespace std;
 
 template<typename T>
 class TreeNode
@@ -15,7 +36,15 @@ class TreeNode
         T data_;
         TreeNode<T> *lson_;
         TreeNode<T> *rson_;
+        TreeNode();
 };
+
+template<typename T>
+TreeNode<T>::TreeNode()
+{
+    lson_ = NULL;
+    rson_ = NULL;
+}
 
 template<typename T>
 class Tree
@@ -28,42 +57,57 @@ class Tree
         int CalcSize(TreeNode<T> *root);
         int CalcDepth(TreeNode<T> *root);
         void DisplayTree();
-        void ChangeLeftRight(TreeNode *root);
+        void PreOrderVisit(TreeNode<T> *root);
+        void PreOrderUnRec(TreeNode<T> *root);
+        void InOrderVisit(TreeNode<T> *root);
+        void InOrderUnRec(TreeNode<T> *root);
+        void PostOrderVisit(TreeNode<T> *root);
+        void PostOrderVisitUnRec(TreeNode<T> *root);
+        void ChangeLeftRight(TreeNode<T> *root);
+        TreeNode<T> *GetRoot();
     private:
         TreeNode<T> *root_;
         TreeNode<T> *CreatTree();
         void DestroyTree(TreeNode<T> *root);
-        void PreOrderVisit(TreeNode<T> *root);
-        void InOrderVisit(TreeNode<T> *root);
-        void PostOrderVisit(TreeNode<T> *root);
 };
 
-Tree::~Tree()
+template<typename T>
+Tree<T>::~Tree()
 {
     DestroyTree();
 }
 
-void Tree::DestroyTree()
+template<typename T>
+void Tree<T>::DestroyTree()
 {
     DestroyTree(root_);
 }
 
-void Tree::DestroyTree(TreeNode<T> *root)
+template<typename T>
+TreeNode<T> *Tree<T>::GetRoot()
+{
+    return root_;
+}
+
+template<typename T>
+void Tree<T>::DestroyTree(TreeNode<T> *root)
 {
     if (root != NULL)
     {
-        DestroyTree(root -> lson);
-        DestroyTree(root -> rson);
+        DestroyTree(root -> lson_);
+        DestroyTree(root -> rson_);
         delete root;
     }
 }
 
-Tree::Tree()
+template<typename T>
+Tree<T>::Tree()
 {
     root_ = NULL;
 }
 
-void Tree::Creat()
+template<typename T>
+void Tree<T>::Creat()
 {
     root_ = CreatTree();
 }
@@ -71,7 +115,8 @@ void Tree::Creat()
 /*
  *前序遍历建树，用-1标志break
  */
-TreeNode<T> *Tree::CreatTree()
+template<typename T>
+TreeNode<T> *Tree<T>::CreatTree()
 {
     TreeNode<T> *tmp_node = new TreeNode<T>;
     int input = -1;
@@ -79,35 +124,39 @@ TreeNode<T> *Tree::CreatTree()
     {
         if (input == -1)
             return 0;
-        tmp_node -> data = input;
+        tmp_node -> data_ = input;
         tmp_node -> lson_ = CreatTree();
         tmp_node -> rson_ = CreatTree();
         return tmp_node;
     }
 }
 
-void Tree::PreOrderVisit(TreeNode<T> *root)
+template<typename T>
+void Tree<T>::PreOrderVisit(TreeNode<T> *root)
 {
-    cout << root -> data << endl;;
-    PreOrderVisit(root -> lson);
-    PreOrderVisit(root -> rson);
+    cout << root -> data_ << endl;;
+    PreOrderVisit(root -> lson_);
+    PreOrderVisit(root -> rson_);
 }
 
-void Tree::InOrderVisit(TreeNode<T> *root)
+template<typename T>
+void Tree<T>::InOrderVisit(TreeNode<T> *root)
 {
-    PreOrderVisit(root -> lson);
-    cout << root -> data << endl;;
-    PreOrderVisit(root -> rson);
+    PreOrderVisit(root -> lson_);
+    cout << root -> data_ << endl;;
+    PreOrderVisit(root -> rson_);
 }
 
-void Tree::PostOrderVisit(TreeNode<T> *root)
+template<typename T>
+void Tree<T>::PostOrderVisit(TreeNode<T> *root)
 {
-    PreOrderVisit(root -> lson);
-    PreOrderVisit(root -> rson);
-    cout << root -> data << endl;;
+    PreOrderVisit(root -> lson_);
+    PreOrderVisit(root -> rson_);
+    cout << root -> data_ << endl;;
 }
 
-void Tree::PreOrderUnRec(TreeNode<T> *root)
+template<typename T>
+void Tree<T>::PreOrderUnRec(TreeNode<T> *root)
 {
     TreeNode<T> *tmp = root;
     stack<TreeNode<T>*> s;
@@ -115,21 +164,22 @@ void Tree::PreOrderUnRec(TreeNode<T> *root)
     {
         while (tmp != NULL)
         {
-            cout << tmp -> data << endl;
+            cout << tmp -> data_ << endl;
             s.push(tmp);
-            tmp = tmp -> lson;
+            tmp = tmp -> lson_;
         }
 
         if (!s.empty())
         {
             tmp = s.top();
             s.pop();
-            tmp = tmp -> lson;
+            tmp = tmp -> lson_;
         }
     }
 }
 
-void Tree::InOrderUnRec(TreeNode<T> *root)
+template<typename T>
+void Tree<T>::InOrderUnRec(TreeNode<T> *root)
 {
     TreeNode<T> *tmp = root;
     stack<TreeNode<T>*> s;
@@ -138,26 +188,27 @@ void Tree::InOrderUnRec(TreeNode<T> *root)
         while (tmp != NULL)
         {
             s.push(tmp);
-            tmp = tmp -> lson;
+            tmp = tmp -> lson_;
         }
 
         if (!s.empty())
         {
             tmp = s.top();
-            cout << tmp -> data << endl;
+            cout << tmp -> data_ << endl;
             s.pop();
-            tmp = tmp -> lson;
+            tmp = tmp -> lson_;
         }
     }
 }
 
 // 根节点要进栈两次才访问
-void PostOrderVisitUnRec(TreeNode<T> *root)
+template<typename T>
+void Tree<T>::PostOrderVisitUnRec(TreeNode<T> *root)
 {
-    stack< BinTreeNode<T>*> s1; 
+    stack< TreeNode<T>*> s1; 
     stack<int> s2;
     TreeNode<T> *t = root;
-    while(!s1.IsEmpty()|| t != 0) 
+    while(!s1.empty()|| t != 0) 
     { 
         while (t!= 0) 
         {
@@ -165,7 +216,7 @@ void PostOrderVisitUnRec(TreeNode<T> *root)
             s2.push(0); 
             t = t -> lson_;
         }
-        if (!s.IsEmpty())
+        if (!s1.empty())
         { 
             t = s1.top();
             s1.pop();
@@ -173,7 +224,7 @@ void PostOrderVisitUnRec(TreeNode<T> *root)
             s2.pop();
             if (flag == 1)
             { 
-                cout << t -> data << endl;
+                cout << t -> data_ << endl;
                 t = 0;
             }
             else
@@ -186,15 +237,17 @@ void PostOrderVisitUnRec(TreeNode<T> *root)
     } 
 }
 
-int Tree::CalcSize(TreeNode<T> *root)
+template<typename T>
+int Tree<T>::CalcSize(TreeNode<T> *root)
 {
     if (root == NULL)
         return 0;
     else
-        return 1 + CalcSize(root -> lson_) + CalcSize(root -> rson_)
+        return 1 + CalcSize(root -> lson_) + CalcSize(root -> rson_);
 }
 
-int Tree::CalcDepth(TreeNode<T> *root)
+template<typename T>
+int Tree<T>::CalcDepth(TreeNode<T> *root)
 {
     int left_depth = 0;
     int right_depth = 0;
@@ -203,7 +256,7 @@ int Tree::CalcDepth(TreeNode<T> *root)
     else
     {
         left_depth = CalcDepth(root -> lson_);
-        right_depth = CalcDepth(root -> sson_);
+        right_depth = CalcDepth(root -> rson_);
         if (left_depth > right_depth)
             return left_depth;
         else
@@ -211,12 +264,14 @@ int Tree::CalcDepth(TreeNode<T> *root)
     }
 }
 
-void Tree::DisplayTree()
+template<typename T>
+void Tree<T>::DisplayTree()
 {
 
 }
 
-void Tree::ChangeLeftRight(TreeNode *root)
+template<typename T>
+void Tree<T>::ChangeLeftRight(TreeNode<T> *root)
 {
     if (root)
     {
@@ -225,7 +280,7 @@ void Tree::ChangeLeftRight(TreeNode *root)
         if (root -> rson_)
             ChangeLeftRight(root -> rson_);
 
-        TreeNode *tmp_p = new TreeNode;
+        TreeNode<T> *tmp_p = new TreeNode<T>;
         tmp_p = root -> lson_;
         root -> lson_ = root -> rson_;
         root -> rson_ = tmp_p;
