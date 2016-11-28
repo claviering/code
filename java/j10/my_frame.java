@@ -161,43 +161,45 @@ public class my_frame extends JFrame
 
             }
 
-            //Draw string
-            int i = 0;
-            for (string s : v_str_cir)
-            {
-                s.s = i + s.s;
-                i++;
-                String tmp = s.s.substring(1); //图形个数不超过9个
-                s.paint(g);
-                s.s = tmp;
-            }
-            i = 0;
-            for (string s : v_str_reg)
-            {
-                s.s = i + s.s;
-                i++;
-                String tmp = s.s.substring(1);
-                s.paint(g);
-                s.s = tmp;
-            }
-            i = 0;
-            for (string s : v_str_squ)
-            {
-                s.s = i + s.s;
-                i++;
-                String tmp = s.s.substring(1);
-                s.paint(g);
-                s.s = tmp;
-            }
-            i = 0;
-            for (string s : v_str_tri)
-            {
-                s.s = i + s.s;
-                i++;
-                String tmp = s.s.substring(1);
-                s.paint(g);
-                s.s = tmp;
-            }
+            /*
+             //Draw string
+             *int i = 0;
+             *for (string s : v_str_cir)
+             *{
+             *    s.s = i + s.s;
+             *    i++;
+             *    String tmp = s.s.substring(1); //图形个数不超过9个
+             *    s.paint(g);
+             *    s.s = tmp;
+             *}
+             *i = 0;
+             *for (string s : v_str_reg)
+             *{
+             *    s.s = i + s.s;
+             *    i++;
+             *    String tmp = s.s.substring(1);
+             *    s.paint(g);
+             *    s.s = tmp;
+             *}
+             *i = 0;
+             *for (string s : v_str_squ)
+             *{
+             *    s.s = i + s.s;
+             *    i++;
+             *    String tmp = s.s.substring(1);
+             *    s.paint(g);
+             *    s.s = tmp;
+             *}
+             *i = 0;
+             *for (string s : v_str_tri)
+             *{
+             *    s.s = i + s.s;
+             *    i++;
+             *    String tmp = s.s.substring(1);
+             *    s.paint(g);
+             *    s.s = tmp;
+             *}
+             */
         }
     }
 
@@ -207,9 +209,9 @@ public class my_frame extends JFrame
      */
     JFrame app_text = new JFrame("input");
     // 添加Add控件
-    JTextField[][] text = {{new JTextField("Circular",10), new JTextField("r",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("Reg",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("squ",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("tri",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)}};
+    JTextField[][] text = {{new JTextField("Cir",10), new JTextField("r",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("Reg",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("squ",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)},{new JTextField("tri",10), new JTextField("n",10), new JTextField("x",10), new JTextField("y",10), new JTextField("Color",10)}};
     JButton[] b_color = {new JButton("ADD"),new JButton("ADD"),new JButton("ADD"),new JButton("ADD")};
-    JButton[] b = {new JButton("OK"),new JButton("Cancel")};
+    JButton b = new JButton("OK");
 
     // get Cir r x y color
     public void GetCirTextFileContent()
@@ -242,6 +244,8 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_cir,tmp_str);
                     AddGraphToVector(tmp_cir);
+                    String tmp_String = "cir r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
+                    v_delete_cir.addElement(tmp_String);
                     app_text.toFront();
     }
 
@@ -277,6 +281,8 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_reg,tmp_str);
                     AddGraphToVector(tmp_reg);
+                    String tmp_String = "reg r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
+                    v_delete_reg.addElement(tmp_String);
                     app_text.toFront();
 
     }
@@ -313,6 +319,8 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_squ,tmp_str);
                     AddGraphToVector(tmp_squ);
+                    String tmp_String = "squ r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
+                    v_delete_squ.addElement(tmp_String);
                     app_text.toFront();
 
     }
@@ -350,6 +358,8 @@ public class my_frame extends JFrame
                     tmp_str.color = color;
                     AddStringToVector(tmp_tri,tmp_str);
                     AddGraphToVector(tmp_tri);
+                    String tmp_String = "tri r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
+                    v_delete_tri.addElement(tmp_String);
                     app_text.toFront();
 
     }
@@ -382,7 +392,7 @@ public class my_frame extends JFrame
         }
 
         // 添加两个按钮,cancel按钮没用了，按ok就关闭
-        c.add(b[0]);
+        c.add(b);
 
         //paint Circular
         // r text event when get focuse set text
@@ -585,7 +595,7 @@ public class my_frame extends JFrame
         });
 
         //OK event
-        b[0].addActionListener(new ActionListener()
+        b.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -757,17 +767,135 @@ public class my_frame extends JFrame
         {new JTextField("tri",10), new JTextField("new n",10), new JTextField("new x",10), new JTextField("new y",10), new JTextField("new Color",10)}
     };
 
-    JFrame app_mod = new JFrame("Modify");
     public void ModifyGraph()
     {
-        app_mod.setUndecorated(true);
-        app_mod.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        app_mod.setSize(380,160);
-        app_mod.setLocationRelativeTo(null);
-        app_mod.setVisible(true);
-        Container c = app_mod.getContentPane();
+        delete_list.setUndecorated(true);
+        delete_list.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        delete_list.setSize(380,160);
+        delete_list.setLocationRelativeTo(null);
+        delete_list.setVisible(true);
+        Container c = delete_list.getContentPane();
         c.setLayout(new FlowLayout());
 
+    }
+
+    //delete with combox
+    JFrame delete_list = new JFrame("DELETE");
+    Vector<String> v_delete_cir = new Vector<String>();
+    Vector<String> v_delete_reg = new Vector<String>();
+    Vector<String> v_delete_squ = new Vector<String>();
+    Vector<String> v_delete_tri = new Vector<String>();
+    JComboBox[] delete_box = {new JComboBox(v_delete_cir),new JComboBox(v_delete_reg),new JComboBox(v_delete_squ),new JComboBox(v_delete_tri)};
+    JButton[] del = {new JButton("DEL"),new JButton("DEL"),new JButton("DEL"),new JButton("DEL")};
+    String null_string_in_combox = "                                    ";
+    public void Delete()
+    {
+        delete_list.setUndecorated(true);
+        delete_list.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        delete_list.setSize(400,160);
+        delete_list.setLocationRelativeTo(null);
+        delete_list.setVisible(true);
+        Container c = delete_list.getContentPane();
+        c.setLayout(new FlowLayout());
+        for (int i = 0; i < 4; i++)
+        {
+            c.add(text[i][0]);
+            text[i][0].setEditable(false);
+            delete_box[i].addItem("                                    ");
+            c.add(delete_box[i]);
+            c.add(del[i]);
+        }
+        c.add(b);
+        //OK event
+        b.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    delete_list.dispose(); //close frame
+                }
+            }
+        );
+        //cir DEL event
+        del[0].addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    int selectedIndex = delete_box[0].getSelectedIndex();
+                    if (selectedIndex >= 0)
+                    {
+
+                        delete_box[0].setSelectedItem(null_string_in_combox);
+                        v_cir.remove(selectedIndex + 1);
+
+                        v_delete_cir.remove(selectedIndex);
+                        JComboBox tmp = new JComboBox(v_delete_cir);
+                        delete_box[0] = tmp;
+
+                        canvas.repaint();
+                    }
+                }
+            }
+        );
+        //reg DEL event
+        del[1].addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    int selectedIndex = delete_box[1].getSelectedIndex();
+                    if (selectedIndex >= 0)
+                    {
+                        delete_box[1].setSelectedItem(null_string_in_combox);
+                        v_reg.remove(selectedIndex + 1);
+
+                        v_delete_reg.remove(selectedIndex);
+                        JComboBox tmp = new JComboBox(v_delete_reg);
+                        delete_box[1] = tmp;
+
+                        canvas.repaint();
+                    }
+                }
+            }
+        );
+        //squ DEL event
+        del[2].addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    int selectedIndex = delete_box[2].getSelectedIndex();
+                    if (selectedIndex >= 0)
+                    {
+                        delete_box[2].setSelectedItem(null_string_in_combox);
+                        v_squ.remove(selectedIndex + 1);
+
+                        v_delete_squ.remove(selectedIndex);
+                        JComboBox tmp = new JComboBox(v_delete_squ);
+                        delete_box[2] = tmp;
+
+                        canvas.repaint();
+                    }
+                }
+            }
+        );
+        //tri DEL event
+        del[3].addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    int selectedIndex = delete_box[3].getSelectedIndex();
+                    if (selectedIndex >= 0)
+                    {
+                        delete_box[3].setSelectedItem(null_string_in_combox);
+                        v_tri.remove(selectedIndex + 1);
+
+                        v_delete_tri.remove(selectedIndex);
+                        JComboBox tmp = new JComboBox(v_delete_tri);
+                        delete_box[3] = tmp;
+
+                        canvas.repaint();
+                    }
+                }
+            }
+        );
     }
 
     public my_frame()
@@ -806,7 +934,8 @@ public class my_frame extends JFrame
                     public void actionPerformed(ActionEvent e)
                     {
                         JMenuItem m = (JMenuItem)e.getSource();
-                        DeleteGraph();
+                        //DeleteGraph();
+                        Delete();
                     }
                 }
             );
