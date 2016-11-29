@@ -68,28 +68,6 @@ public class my_frame extends JFrame
         v_tri.addElement(tri);
     }
 
-    string str = new string("",0,0);
-    Vector<string> v_str_cir = new Vector<string>();
-    Vector<string> v_str_reg = new Vector<string>();
-    Vector<string> v_str_squ = new Vector<string>();
-    Vector<string> v_str_tri = new Vector<string>();
-    public void AddStringToVector(Circular c, string s)
-    {
-        v_str_cir.addElement(s);
-    }
-    public void AddStringToVector(Regular_Pentagon r, string s)
-    {
-        v_str_reg.addElement(s);
-    }
-    public void AddStringToVector(Square sq, string s)
-    {
-        v_str_squ.addElement(s);
-    }
-    public void AddStringToVector(Triangle t, string s)
-    {
-        v_str_tri.addElement(s);
-    }
-
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
     /*
@@ -106,10 +84,6 @@ public class my_frame extends JFrame
             AddGraphToVector(reg);
             AddGraphToVector(squ);
             AddGraphToVector(tri);
-            AddStringToVector(cir,str);
-            AddStringToVector(reg,str);
-            AddStringToVector(squ,str);
-            AddStringToVector(tri,str);
         }
         // Override paintComponent to perform your own painting
         @Override
@@ -161,45 +135,6 @@ public class my_frame extends JFrame
 
             }
 
-            /*
-             //Draw string
-             *int i = 0;
-             *for (string s : v_str_cir)
-             *{
-             *    s.s = i + s.s;
-             *    i++;
-             *    String tmp = s.s.substring(1); //图形个数不超过9个
-             *    s.paint(g);
-             *    s.s = tmp;
-             *}
-             *i = 0;
-             *for (string s : v_str_reg)
-             *{
-             *    s.s = i + s.s;
-             *    i++;
-             *    String tmp = s.s.substring(1);
-             *    s.paint(g);
-             *    s.s = tmp;
-             *}
-             *i = 0;
-             *for (string s : v_str_squ)
-             *{
-             *    s.s = i + s.s;
-             *    i++;
-             *    String tmp = s.s.substring(1);
-             *    s.paint(g);
-             *    s.s = tmp;
-             *}
-             *i = 0;
-             *for (string s : v_str_tri)
-             *{
-             *    s.s = i + s.s;
-             *    i++;
-             *    String tmp = s.s.substring(1);
-             *    s.paint(g);
-             *    s.s = tmp;
-             *}
-             */
         }
     }
 
@@ -234,15 +169,11 @@ public class my_frame extends JFrame
                 tmp_cir.color = color;
                 text[0][4].setBackground(color);
 
-                    tmp_cir.calc_area();
-                    tmp_cir.calc_perimeter();
-
                     string tmp_str = new string("",0,0);
                     tmp_str.s = ": area is " + Double.toString(tmp_cir.area) + " per is " + Double.toString(tmp_cir.perimeter);
                     tmp_str.x = tmp_cir.x;
                     tmp_str.y = tmp_cir.y;
                     tmp_str.color = color;
-                    AddStringToVector(tmp_cir,tmp_str);
                     AddGraphToVector(tmp_cir);
                     String tmp_String = "cir r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
                     v_delete_cir.addElement(tmp_String);
@@ -271,15 +202,11 @@ public class my_frame extends JFrame
                 tmp_reg.color = color;
                 text[1][4].setBackground(color);
 
-                    tmp_reg.calc_area();
-                    tmp_reg.calc_perimeter();
-
                     string tmp_str = new string("",0,0);
                     tmp_str.s = ": area is " + Double.toString(tmp_reg.area) + " per is " + Double.toString(tmp_reg.perimeter);
                     tmp_str.x = tmp_reg.x;
                     tmp_str.y = tmp_reg.y;
                     tmp_str.color = color;
-                    AddStringToVector(tmp_reg,tmp_str);
                     AddGraphToVector(tmp_reg);
                     String tmp_String = "reg r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
                     v_delete_reg.addElement(tmp_String);
@@ -309,15 +236,11 @@ public class my_frame extends JFrame
                 tmp_squ.color = color;
                 text[2][4].setBackground(color);
 
-                    tmp_squ.calc_area();
-                    tmp_squ.calc_perimeter();
-
                     string tmp_str = new string("",0,0);
                     tmp_str.s = ": area is " + Double.toString(tmp_squ.area) + " per is " + Double.toString(tmp_squ.perimeter);
                     tmp_str.x = tmp_squ.x;
                     tmp_str.y = tmp_squ.y;
                     tmp_str.color = color;
-                    AddStringToVector(tmp_squ,tmp_str);
                     AddGraphToVector(tmp_squ);
                     String tmp_String = "squ r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
                     v_delete_squ.addElement(tmp_String);
@@ -348,15 +271,11 @@ public class my_frame extends JFrame
                 tmp_tri.color = color;
                 text[3][4].setBackground(color);
 
-                    tmp_tri.calc_area();
-                    tmp_tri.calc_perimeter();
-
                     string tmp_str = new string("",0,0);
                     tmp_str.s = ": area is " + Double.toString(tmp_tri.area) + " per is " + Double.toString(tmp_tri.perimeter);
                     tmp_str.x = tmp_tri.x;
                     tmp_str.y = tmp_tri.y;
                     tmp_str.color = color;
-                    AddStringToVector(tmp_tri,tmp_str);
                     AddGraphToVector(tmp_tri);
                     String tmp_String = "tri r:" + s_r + " " + "x:" + s_x + " " + "y:" + s_y;
                     v_delete_tri.addElement(tmp_String);
@@ -608,154 +527,6 @@ public class my_frame extends JFrame
 
 
     
-    // 添加Delete控件
-    JTextField[][] delete_text = 
-    {
-        {new JTextField("Cir",10), new JTextField("Delete Index",10)},
-        {new JTextField("Reg",10), new JTextField("Delete Index",10)},
-        {new JTextField("Squ",10), new JTextField("Delete Index",10)},
-        {new JTextField("Tri",10), new JTextField("Delete Index",10)}
-    };
-
-    // delete code below
-    JButton[] b_delete = {new JButton("DELETE"),new JButton("DELETE"),new JButton("DELETE"),new JButton("DELETE")};
-
-    JButton delete_button = new JButton("OK");
-
-    JFrame app_delete = new JFrame("Delete");
-    public void DeleteGraph()
-    {
-        app_delete.setUndecorated(true);
-        app_delete.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        app_delete.setSize(380,160);
-        app_delete.setLocationRelativeTo(null);
-        app_delete.setVisible(true);
-        
-        for (int i = 0; i < 4; i++)
-        {
-            delete_text[i][0].setEditable(false);
-        }
-
-        Container c = app_delete.getContentPane();
-        c.setLayout(new FlowLayout());
-
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 2; j++)
-            {
-                c.add(delete_text[i][j]); 
-            }
-            c.add(b_delete[i]);
-        }
-        c.add(delete_button);
-        
-        //OK event in delete
-        delete_button.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
-                    app_delete.dispose(); //close frame
-                }
-            }
-        );
-
-        //cir delete index event
-        delete_text[0][1].addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                delete_text[0][1].setText("");
-            }
-        });
-        //cir delete event
-        b_delete[0].addMouseListener(new java.awt.event.MouseAdapter() 
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt) 
-            {
-                String s_index = delete_text[0][1].getText();
-                int cir_index_delete = Integer.parseInt(s_index);
-                if (cir_index_delete == 0)
-                    return;
-                v_cir.remove(cir_index_delete);
-                v_str_cir.remove(cir_index_delete);
-                canvas.repaint();
-                delete_text[0][1].setText("0");
-            }
-        });
-
-        //reg delete index event
-        delete_text[1][1].addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                delete_text[1][1].setText("");
-            }
-        });
-        //reg delete event
-        b_delete[1].addMouseListener(new java.awt.event.MouseAdapter() 
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt) 
-            {
-                String s_index = delete_text[1][1].getText();
-                int reg_index_delete = Integer.parseInt(s_index);
-                if (reg_index_delete == 0)
-                    return;
-                v_reg.remove(reg_index_delete);
-                v_str_reg.remove(reg_index_delete);
-                canvas.repaint();
-                delete_text[1][1].setText("0");
-            }
-        });
-
-        //squ delete index event
-        delete_text[2][1].addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                delete_text[2][1].setText("");
-            }
-        });
-        //squ delete event
-        b_delete[2].addMouseListener(new java.awt.event.MouseAdapter() 
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt) 
-            {
-                String s_index = delete_text[2][1].getText();
-                int squ_index_delete = Integer.parseInt(s_index);
-                if (squ_index_delete == 0)
-                    return;
-                v_squ.remove(squ_index_delete);
-                v_str_squ.remove(squ_index_delete);
-                canvas.repaint();
-                delete_text[2][1].setText("0");
-            }
-        });
-
-        //tri delete index event
-        delete_text[3][1].addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                delete_text[3][1].setText("");
-            }
-        });
-        //tri delete event
-        b_delete[3].addMouseListener(new java.awt.event.MouseAdapter() 
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt) 
-            {
-                String s_index = delete_text[3][1].getText();
-                int tri_index_delete = Integer.parseInt(s_index);
-                if (tri_index_delete == 0)
-                    return;
-                v_tri.remove(tri_index_delete);
-                v_str_tri.remove(tri_index_delete);
-                canvas.repaint();
-                delete_text[3][1].setText("0");
-            }
-        });
-
-    }
 
 
     // Modify code below
@@ -934,7 +705,6 @@ public class my_frame extends JFrame
                     public void actionPerformed(ActionEvent e)
                     {
                         JMenuItem m = (JMenuItem)e.getSource();
-                        //DeleteGraph();
                         Delete();
                     }
                 }
