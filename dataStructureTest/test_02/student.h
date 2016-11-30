@@ -29,13 +29,18 @@ class Student
         char birthday_[256];
         char sex_[256];
         char condition_[256];
-        Student();
+        Student(); // 无参数表示不输入信息
+        Student(int n); // 有参数表示不输入信息 
         friend bool operator < (Student s1,Student s2);
         friend bool operator > (Student s1,Student s2);
         friend ostream &operator << (ostream &os,Student s);
 };
 
 Student::Student()
+{
+
+}
+Student::Student(int n)
 {
     cout << "input number name birthday sex condition" << endl;
     cin >> number_ >> name_ >> birthday_ >> sex_ >> condition_;
@@ -54,6 +59,7 @@ bool operator < (Student s1,Student s2)
     else
         return 0;
 }
+
 bool operator > (Student s1,Student s2)
 {
     if (s1.number_ > s2.number_)

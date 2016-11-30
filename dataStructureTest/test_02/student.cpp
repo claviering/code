@@ -8,7 +8,14 @@
  * Distributed under terms of the WTFPL license.
  */
 
+/*
+ * 函数说明：
+ * void choose(AVLTree<T> &object)
+ * @param object 健康变的对象
+ * 主函数调用choose就可以
+ */
 #include <iostream>
+#include <stdlib.h>
 #include "student.h"
 #include "student_tree.h"
 using namespace std;
@@ -30,7 +37,7 @@ void CreatNewList(AVLTree<T> &object)
 template<typename T>
 void AddNewInfo(AVLTree<T> &object)
 {
-    Student new_student;
+    Student new_student(1);
     object.insert(new_student);
 }
 
@@ -42,8 +49,7 @@ void AddNewInfo(AVLTree<T> &object)
 template<typename T>
 void InsertNewInfo(AVLTree<T> &object, int location)
 {
-    Student new_student;
-    object.insert(new_student);
+    AddNewInfo(object);
 }
 
 /*
@@ -101,6 +107,7 @@ template<typename T>
 void DisplayAllStudentInfo(AVLTree<T> &object)
 {
     object.traversal(); 
+    cout << endl;
 }
 
 /*
@@ -220,6 +227,8 @@ void choose(AVLTree<T> &object)
 
 int main()
 {
-    
+    AVLTree<Student> s;
+    while (1)
+        choose(s);
     return 0;
 }

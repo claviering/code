@@ -8,6 +8,21 @@
 #ifndef STUDENT_TREE_H
 #define STUDENT_TREE_H
 
+/*
+ * 类AVLTree：
+ * 用于存储学生的数据结构
+ * 属性：
+ *      root //根节点
+ * 方法：
+ *      AVLTree():root(NULL){}
+ *      void insert(T x);//插入接口
+ *      TreeNode<T> *find(T x);//查找接口
+ *      void Delete(T x);//删除接口
+ *      void Delete();//删除一棵树
+ *      void traversal();//遍历接口
+ *      void Write(); //写入文件的接口
+ */
+
 #include "student.h"
 #include <iostream>
 #include <fstream>
@@ -40,7 +55,7 @@ class AVLTree
         void DoubleRotateLR(TreeNode<T> *&k3);//左右情况下的旋转
         void DoubleRotateRL(TreeNode<T> *&k3);//右左情况下的旋转
         int Max(int cmpa,int cmpb);//求最大值
-        void WriteToFile(TreeNode<T> root); //把树的数据写入文件
+        void WriteToFile(TreeNode<T> *root); //把树的数据写入文件
 
     public:
         AVLTree():root(NULL){}
@@ -54,10 +69,10 @@ class AVLTree
 };
 
 template<typename T>
-void AVLTree<T>::WriteToFile(TreeNode<T> root)
+void AVLTree<T>::WriteToFile(TreeNode<T> *root)
 {
     fstream write_file;
-    write_file.open("student_info", ios::out | ios::binary | ios::trunc);
+    write_file.open("student_info", ios::out | ios::binary | ios::app);
     if (root != NULL)
     {
         WriteToFile(root->lson);
@@ -272,6 +287,7 @@ void AVLTree<T>::insubtree(TreeNode<T> *node)
         return;
     insubtree(node->lson);//先遍历左子树
     cout << node->data << " ";//输出根节点
+    cout << endl;
     insubtree(node->rson);//再遍历右子树
 }
 //中序遍历接口
