@@ -29,6 +29,37 @@ class Student
         char birthday_[256];
         char sex_[256];
         char condition_[256];
+        Student();
+        friend bool operator < (Student s1,Student s2);
+        friend bool operator > (Student s1,Student s2);
+        friend ostream &operator << (ostream &os,Student s);
 };
+
+Student::Student()
+{
+    cout << "input number name birthday sex condition" << endl;
+    cin >> number_ >> name_ >> birthday_ >> sex_ >> condition_;
+}
+
+ostream &operator << (ostream &os,Student s)
+{
+    os << s.number_ << " " << s.name_ << " " << s.birthday_ << " " << s.sex_ << " " << s.condition_;
+    return os;
+}
+
+bool operator < (Student s1,Student s2)
+{
+    if (s1.number_ < s2.number_)
+        return 1;
+    else
+        return 0;
+}
+bool operator > (Student s1,Student s2)
+{
+    if (s1.number_ > s2.number_)
+        return 1;
+    else
+        return 0;
+}
 
 #endif

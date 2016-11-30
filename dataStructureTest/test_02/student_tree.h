@@ -10,10 +10,11 @@
 
 #include "student.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 //AVL树节点信息
 template<typename T>
-typename TreeNode
+class TreeNode
 {
     public:
         TreeNode():lson(NULL),rson(NULL),freq(1),hgt(0){}
@@ -39,15 +40,45 @@ class AVLTree
         void DoubleRotateLR(TreeNode<T> *&k3);//左右情况下的旋转
         void DoubleRotateRL(TreeNode<T> *&k3);//右左情况下的旋转
         int Max(int cmpa,int cmpb);//求最大值
+        void WriteToFile(TreeNode<T> root); //把树的数据写入文件
 
     public:
         AVLTree():root(NULL){}
         void insert(T x);//插入接口
         TreeNode<T> *find(T x);//查找接口
         void Delete(T x);//删除接口
+        void Delete();//删除一棵树
         void traversal();//遍历接口
+        void Write(); //写入文件的接口
 
 };
+
+template<typename T>
+void AVLTree<T>::WriteToFile(TreeNode<T> root)
+{
+    fstream write_file;
+    write_file.open("student_info", ios::out | ios::binary | ios::trunc);
+    if (root != NULL)
+    {
+        WriteToFile(root->lson);
+        write_file.write((char *)&(root -> data), sizeof(Student));
+        write_file.close();
+        WriteToFile(root->rson);
+    }
+}
+
+template<typename T>
+void AVLTree<T>::Write()
+{
+    WriteToFile(root);
+}
+//删除一棵树
+template<typename T>
+void AVLTree<T>::Delete()
+{
+    while (root)
+        Delete(root->data);
+}
 
 //计算节点的高度
 template<typename T>
@@ -150,11 +181,11 @@ TreeNode<T> *AVLTree<T>::findpri(TreeNode<T> *node,T x)
     {
         return NULL;
     }
-    if(node->data>x)//如果x小于节点的值,就继续在节点的左子树中查找x
+    if(node->data > x)//如果x小于节点的值,就继续在节点的左子树中查找x
     {
         return findpri(node->lson,x);
     }
-    else if(node->data<x)//如果x大于节点的值,就继续在节点的左子树中查找x
+    else if(node->data < x)//如果x大于节点的值,就继续在节点的左子树中查找x
     {
         return findpri(node->rson,x);
     }
@@ -214,7 +245,7 @@ void AVLTree<T>::Deletepri(TreeNode<T> *&node,T x)
         else//此节点有1个或0个儿子
         {
             TreeNode<T> *temp = node;
-            if(node->lson==NULL)//有右儿子或者没有儿子
+            if(node->lson == NULL)//有右儿子或者没有儿子
                 node = node -> rson;
             else if(node->rson == NULL)//有左儿子
                 node = node -> lson;
@@ -237,10 +268,10 @@ void AVLTree<T>::Delete(T x)
 template<typename T>
 void AVLTree<T>::insubtree(TreeNode<T> *node)
 {
-    if(node==NULL) 
+    if(node == NULL) 
         return;
     insubtree(node->lson);//先遍历左子树
-    cout<<node->data<<" ";//输出根节点
+    cout << node->data << " ";//输出根节点
     insubtree(node->rson);//再遍历右子树
 }
 //中序遍历接口
