@@ -133,6 +133,9 @@ void ReadForFile(AVLTree<T> object)
 template<typename T>
 void WriteFile(AVLTree<T> object)
 {
+    fstream write_file;
+    write_file.open("student_info", ios::out | ios::binary | ios::trunc);
+    write_file.close();
     object.Write();
 }
 
