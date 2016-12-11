@@ -24,9 +24,14 @@ class HuffmanNode
         HuffmanNode *rson;
         HuffmanNode(char tmp_c, int tmp_weight, HuffmanNode *l, HuffmanNode *r):c(tmp_c), weight(tmp_weight), lson(l), rson(r){}
         HuffmanNode(char tmp_c, int tmp_weight):c(tmp_c), weight(tmp_weight), lson(NULL), rson(NULL){}
-        bool operator < (const HuffmanNode *p) const
+};
+
+class Cmp
+{
+    public:
+        bool operator() (HuffmanNode *&p1, HuffmanNode *&p2)
         {
-            return p->weight <= weight;
+            return p1->weight > p2->weight;
         }
 };
 
@@ -36,8 +41,8 @@ class HuffmanTree
         HuffmanNode *root;
         void creat(HuffmanNode *root, string &prefix, map<char, string> &result);
     public:
-        void init_HuffmanNode(priority_queue<HuffmanNode*> &q, int nodeNum, char ch[], int weight[]);
-        void creat_HuffmanTree(priority_queue<HuffmanNode*> &q);
+        void init_HuffmanNode(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q, int nodeNum, char ch[], int weight[]);
+        void creat_HuffmanTree(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q);
         void creat_HuffmanCode(string &prefix, map<char, string> &result);
         void display_HuffmanCode(map<char, string> &result);
 };
@@ -99,7 +104,7 @@ void HuffmanTree::creat_HuffmanCode(string &prefix, map<char, string> &result)
  * 建立Huffman树
  * @param q 优先队列
  */
-void HuffmanTree::creat_HuffmanTree(priority_queue<HuffmanNode*> &q)
+void HuffmanTree::creat_HuffmanTree(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q)
 {
     while (q.size() > 1)
     {
@@ -121,7 +126,7 @@ void HuffmanTree::creat_HuffmanTree(priority_queue<HuffmanNode*> &q)
  * @param ch[] 字符数组
  * @param weight 权重数组
  */
-void HuffmanTree::init_HuffmanNode(priority_queue<HuffmanNode*> &q, int nodeNum, char ch[], int wei[])
+void HuffmanTree::init_HuffmanNode(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q, int nodeNum, char ch[], int wei[])
 {
     for (int i = 0; i < nodeNum; i++)
     {
