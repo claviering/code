@@ -26,6 +26,9 @@ class HuffmanNode
         HuffmanNode(char tmp_c, int tmp_weight):c(tmp_c), weight(tmp_weight), lson(NULL), rson(NULL){}
 };
 
+/*
+ * 优先队列的重载运算符
+ */
 class Cmp
 {
     public:
@@ -101,7 +104,7 @@ void HuffmanTree::creat_HuffmanCode(string &prefix, map<char, string> &result)
 }
 
 /*
- * 建立Huffman树
+ * 建立Huffman树,root指向根节点
  * @param q 优先队列
  */
 void HuffmanTree::creat_HuffmanTree(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q)
@@ -120,7 +123,7 @@ void HuffmanTree::creat_HuffmanTree(priority_queue<HuffmanNode*, vector<HuffmanN
 }
 
 /*
- * 初始化Huffman树
+ * 初始化Huffman树,把节点push到优先队列
  * @param q 优先队列q
  * @param nodeNum 节点数量
  * @param ch[] 字符数组

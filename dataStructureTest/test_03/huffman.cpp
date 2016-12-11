@@ -9,6 +9,7 @@
  */
 
 #include "huffman.h"
+#include "huffman_code.h"
 #include <iostream>
 #include <string>
 #include <queue>
@@ -25,10 +26,29 @@ int main()
     string prefix = "";
 
     HuffmanTree tree;
-    tree.init_HuffmanNode(q,nodeNum,ch,weight);
-    tree.creat_HuffmanTree(q);
-    tree.creat_HuffmanCode(prefix,result);
-    tree.display_HuffmanCode(result);
+    HuffmanCode code;
+    cout << "input n" << endl;
+    int n;
+    cin >> n;
+    switch (n)
+    {
+        case 1:
+            tree.init_HuffmanNode(q,nodeNum,ch,weight);
+            tree.creat_HuffmanTree(q);
+            tree.creat_HuffmanCode(prefix,result);
+            code.write(result);
+            break;
+        case 2:
+            code.encoding(result);
+            break;
+        case 3:
+            code.decoding(result);
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
 
     return 0;
 }
