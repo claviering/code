@@ -25,6 +25,7 @@ class HuffmanCode
         void read(map<char,string> &result);
         void encoding(map<char,string> &result);
         void decoding(map<char,string> &result);
+        void print();
 };
 
 HuffmanCode::HuffmanCode(char c_, string s)
@@ -112,5 +113,31 @@ void HuffmanCode::decoding(map<char,string> &result)
             ++it;  
         }
     }
+}
+
+void HuffmanCode::print()
+{
+    ifstream in("CodeFile");
+    ofstream out("CodePrint");
+
+    char buffer[256];
+    string s_single_line = "";
+    while (!in.eof())
+    {
+        in.getline(buffer,256);
+        string tmp(buffer);
+        s_single_line += tmp;
+    }
+    for (int p = 0; p < s_single_line.length(); p++)
+    {
+        out << s_single_line[p];
+        cout << s_single_line[p];
+        if (((p+1) % 50) == 0)
+        {
+            out << endl;
+            cout << endl;
+        }
+    }
+    cout << endl;
 }
 #endif /* !HUFFMAN_CODE_H */

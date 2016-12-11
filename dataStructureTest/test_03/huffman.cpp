@@ -45,6 +45,7 @@ int main()
             code.decoding(result);
             break;
         case 4:
+            code.print();
             break;
         case 5:
             break;
