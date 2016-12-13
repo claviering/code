@@ -23,6 +23,7 @@ class HuffmanCode
         HuffmanCode(){}
         void write(map<char, string> result);
         void read(map<char,string> &result);
+        void readToMap(map<string, char> &decoding_map);
         void encoding(map<char,string> &result);
         void decoding(map<char,string> &result);
         void print();
@@ -71,6 +72,22 @@ void HuffmanCode::read(map<char,string> &result)
 }
 
 /*
+ * 把Huffman编码读出来保存到map里，用于decoding，更快
+ */
+void HuffmanCode::readToMap(map<string, char> &decoding_map)
+{
+    fstream read_file;
+    read_file.open("hfmTree", ios::in | ios::binary);
+    HuffmanCode *p = new HuffmanCode;
+    while (read_file)
+    {
+        read_file.read((char *)p, sizeof(HuffmanCode));
+        string s(p->code);
+        decoding_map[s] = p->c;
+    }
+    read_file.close();
+}
+/*
  * 编码ToBeTran --> CodeFile
  */
 void HuffmanCode::encoding(map<char,string> &result)
@@ -90,10 +107,17 @@ void HuffmanCode::encoding(map<char,string> &result)
     }
 }
 
+/*
+ * 解码 CodeFile -> TextFile
+ * 时间复杂度mlogn m:文件编码长度 n:Huffman编码长度
+ */
 void HuffmanCode::decoding(map<char,string> &result)
 {
     if (result.empty())
         read(result);
+
+    map<string, char> decoding_map;
+    readToMap(decoding_map);
 
     ifstream in("CodeFile");
     ofstream out("TextFile");
@@ -102,16 +126,7 @@ void HuffmanCode::decoding(map<char,string> &result)
     {
         in.getline(buffer,256);
         string s(buffer);
-
-        map<char, string>::const_iterator it = result.begin();  
-        while (it != result.end()) 
-        {  
-            if (s.compare(it->second) == 0)
-            {
-                out << it->first;
-            }
-            ++it;  
-        }
+        out << decoding_map[s];
     }
 }
 

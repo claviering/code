@@ -28,6 +28,10 @@ int main()
     HuffmanTree tree;
     HuffmanCode code;
     cout << "input n" << endl;
+    cout << "1. Init" << endl;
+    cout << "2. Encoding" << endl;
+    cout << "3. Decoding" << endl;
+    cout << "4. Print" << endl;
     int n;
     cin >> n;
     switch (n)
