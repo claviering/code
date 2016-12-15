@@ -8,6 +8,21 @@
 #ifndef _HUFFMAN_CODE_H_
 #define _HUFFMAN_CODE_H_
 
+/*
+ *Huffman编码头文件
+ *属性：
+ *    char c 字符c
+ *    char code[] 字符c对应的Huffman编码
+ *方法：
+ *    void write(map<char, string> result); 将Huffman编码二进制写入文件
+ *    void read(map<char,string> &result); 将Huffman编码读入文件，保存到map
+ *    void readToMap(map<string, char> &decoding_map); 读Huffman编码到decoding_map，用于解码
+ *    void encoding(map<char,string> &result); 编码
+ *    void decoding(map<char,string> &result); 解码
+ *    void print(); 输出Huffman编码一行50个
+ */
+    
+
 #include <iostream>
 #include <vector>
 #include <cstring>
@@ -130,6 +145,10 @@ void HuffmanCode::decoding(map<char,string> &result)
     }
 }
 
+/*
+ * 输出Huffman编码一行50个
+ * 保存到文件CodePrint
+ */
 void HuffmanCode::print()
 {
     ifstream in("CodeFile");

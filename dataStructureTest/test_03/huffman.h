@@ -7,6 +7,18 @@
 
 #ifndef _HUFFMAN_NODE_H_
 #define _HUFFMAN_NODE_H_
+/*
+ * 初始化，把节点指针放到优先队列
+ * void init_HuffmanNode(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q, int nodeNum, char ch[], int weight[]);
+ * 创建Huffman树，利用优先队列的节点指针
+ * void creat_HuffmanTree(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q);
+ * 生成Huffman编码，保存到map
+ * void creat_HuffmanCode(string &prefix, map<char, string> &result);
+ * 输出Huffman编码到控制台
+ * void display_HuffmanCode(map<char, string> &result);
+ * 输出Huffman树 根(左孩子，右孩子)
+ * void display();
+ */
 
 #include <iostream>
 #include <queue>
@@ -43,13 +55,38 @@ class HuffmanTree
     private:
         HuffmanNode *root;
         void creat(HuffmanNode *root, string &prefix, map<char, string> &result);
+        void display_HuffmanTree(HuffmanNode *root);
     public:
         void init_HuffmanNode(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q, int nodeNum, char ch[], int weight[]);
         void creat_HuffmanTree(priority_queue<HuffmanNode*, vector<HuffmanNode*>, Cmp> &q);
         void creat_HuffmanCode(string &prefix, map<char, string> &result);
         void display_HuffmanCode(map<char, string> &result);
+        void display();
 };
 
+
+/*
+ * 输出Huffman树接口
+ */
+void HuffmanTree::display()
+{
+    display_HuffmanTree(root);
+}
+
+/*
+ * 输出Huffman树
+ */
+void HuffmanTree::display_HuffmanTree(HuffmanNode *root)
+{
+    if (root != NULL)
+    {
+        cout << root->c << "(";
+        display_HuffmanTree(root->lson);
+        cout << ",";
+        display_HuffmanTree(root->rson);
+        cout << ")";
+    }
+}
 /*
  * 输出Huffman编码
  * @param result map变量

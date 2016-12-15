@@ -27,32 +27,37 @@ int main()
 
     HuffmanTree tree;
     HuffmanCode code;
-    cout << "input n" << endl;
-    cout << "1. Init" << endl;
-    cout << "2. Encoding" << endl;
-    cout << "3. Decoding" << endl;
-    cout << "4. Print" << endl;
-    int n;
-    cin >> n;
-    switch (n)
+    while (1)
     {
-        case 1:
-            tree.init_HuffmanNode(q,nodeNum,ch,weight);
-            tree.creat_HuffmanTree(q);
-            tree.creat_HuffmanCode(prefix,result);
-            code.write(result);
-            break;
-        case 2:
-            code.encoding(result);
-            break;
-        case 3:
-            code.decoding(result);
-            break;
-        case 4:
-            code.print();
-            break;
-        case 5:
-            break;
+        cout << "input n" << endl;
+        cout << "1. Init" << endl;
+        cout << "2. Encoding" << endl;
+        cout << "3. Decoding" << endl;
+        cout << "4. Print" << endl;
+        cout << "5. Tree painting" << endl;
+        int n;
+        cin >> n;
+        switch (n)
+        {
+            case 1:
+                tree.init_HuffmanNode(q,nodeNum,ch,weight);
+                tree.creat_HuffmanTree(q);
+                tree.creat_HuffmanCode(prefix,result);
+                code.write(result);
+                break;
+            case 2:
+                code.encoding(result);
+                break;
+            case 3:
+                code.decoding(result);
+                break;
+            case 4:
+                code.print();
+                break;
+            case 5:
+                tree.display();
+                break;
+        }
     }
 
     return 0;
