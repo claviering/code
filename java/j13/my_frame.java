@@ -574,14 +574,7 @@ public class my_frame extends JFrame
 
     public void ModifyGraph()
     {
-        delete_list.setUndecorated(true);
-        delete_list.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        delete_list.setSize(380,160);
-        delete_list.setLocationRelativeTo(null);
-        delete_list.setVisible(true);
-        Container c = delete_list.getContentPane();
-        c.setLayout(new FlowLayout());
-
+        JOptionPane.showMessageDialog(null, "Delete and Add", "Modify",JOptionPane.INFORMATION_MESSAGE);
     }
 
     //delete with combox
@@ -737,6 +730,7 @@ public class my_frame extends JFrame
                         try
                         {
                             canvas.save();
+                            JOptionPane.showMessageDialog(null, "successful", "save",JOptionPane.INFORMATION_MESSAGE);
                         }
                         catch(IOException ee)
                         {
