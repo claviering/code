@@ -19,11 +19,14 @@ void choose(Mylist<T> &object)
          << "2.头插入建链(输入节点个数和每个数据)" << endl 
          << "3.尾插入建链" << endl 
          << "4.插入" << endl 
-         << "5.删除" << endl 
+         << "5.删除位置 i 的节点" << endl 
          << "6.查找" << endl 
          << "7.输出表长" << endl
          << "8.链表元素逆置" << endl 
-         << "9.退出" << endl; 
+         << "9.退出" << endl
+         << "10.链表元素逆置(不需要申请新的节点空间)" << endl
+         << "11.删除一个数据为 x 的节点" << endl
+         << "12.删除所有数据为 x 的节点" << endl;
     cout << "input choose" << endl;
     int n;
     cin >> n;
@@ -74,6 +77,27 @@ void choose(Mylist<T> &object)
     }
     else if (n == 9) //退出
         exit(1);
+    else if (n == 10) //链表元素逆置(不需要申请新的节点空间)
+    {
+        object.reverse_list_not_new_node();
+        object.traversal();
+    }
+    else if (n == 11) // 删除一个数据为 x 的节点
+    {
+        int x;
+        cout << "输入要删除的数据" << endl;
+        cin >> x;
+        object.Delete(x);
+        object.traversal();
+    }
+    else if (n == 12) // 删除所有数据为 x 的节点
+    {
+        int x;
+        cout << "输入要删除的数据" << endl;
+        cin >> x;
+        object.Delete_All(x);
+        object.traversal();
+    }
     else 
     {
         cout << "input error" << endl;

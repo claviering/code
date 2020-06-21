@@ -13,6 +13,7 @@
  *     SlistNode *find(T x) 查找x返回指向x的指针
  *     @param 数值x
  *     void Delete(T x) 没有返回值
+ *     void Delete_All(T x) 没有返回值
  *     @param x 数值x
  *     void insert(T x, SlistNode<T> *p) 在节点*P的后面插入一个节点x,可以做为尾插入
  *     @param x 数值x
@@ -20,6 +21,7 @@
  *     void insertHead(T x) 头插入
  *     @param 数值x
  *     void reverse_list() 链表的逆置
+ *     void reverse_list_not_new_node() 链表的逆置(不需要申请新的节点空间)
  *     return_headnode_point() //返回链表头指针
  *
  * @属性说明：
@@ -63,9 +65,11 @@
             bool isEmpty();
             SlistNode<T> *find(T x);
             void Delete(T x);
+            void Delete_All(T x);
             void insert(T x,SlistNode<T> *p);
             void insertHead(T x);
             void reverse_list();
+            void reverse_list_not_new_node();
             SlistNode<T> *return_headnode_point();
     };
 
@@ -110,6 +114,7 @@
     template<typename T>
     void Mylist<T> :: traversal()
     {
+        cout << "链表数据:";
         node = headnode;
         while (node != NULL)
         {
@@ -132,6 +137,16 @@
             node = node -> next;
         }
         return node;
+    }
+    template<typename T>
+    void Mylist<T> :: Delete_All(T x)
+    {
+        int tmplen = listlength;
+        while(tmplen) {
+            Delete(x);
+            tmplen--;
+        }
+
     }
     template<typename T>
     void Mylist<T> :: Delete(T x)
@@ -216,6 +231,30 @@
         }
         lastnode -> next = NULL;
         delete tmp_node;
+    }
+
+    /*
+     *逆置
+     *改变头尾指针和指针方向(不需要申请新的节点空间)
+     */
+    template<typename T>
+    void Mylist<T> :: reverse_list_not_new_node()
+    {
+        if (headnode == NULL || headnode -> next == NULL)
+            return;
+
+        // 做这道题我们需要定义三个指针：prev、curr和nextPtr
+        SlistNode<T> *prev = NULL;
+        SlistNode<T> *curr = headnode;
+        lastnode = headnode;
+        while(curr)
+        {
+            SlistNode<T> *nextPtr = curr->next; // 这一步先用 nextPtr 保存 curr 后面的链表
+            curr->next = prev; // 将当前node的指针域指向prev（即反转）
+            prev = curr; // 往后推移，将prev移到curr的位置上
+            curr = nextPtr; // 将curr往后推移，curr变成当前curr后面的链表部分
+        }
+        headnode = prev;
     }
 
 #endif 
